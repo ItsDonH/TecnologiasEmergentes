@@ -1,0 +1,97 @@
+<!-- Fondo general limpio -->
+<div 
+  class="min-vh-100 d-flex align-items-center"
+  style="
+    background: linear-gradient(180deg, #f5f7fa, #e9ecef);
+  "
+>
+  <div class="container">
+
+    <!-- Logo CEUTEC -->
+    <div class="text-center mb-4">
+      <img 
+        src="https://upload.wikimedia.org/wikipedia/commons/8/8d/CEUTEC_HONDURAS.png"
+        alt="Logo CEUTEC"
+        class="img-fluid"
+        style="max-width: 468px;"
+      />
+    </div>
+
+    <!-- Panel -->
+    <div 
+      class="card shadow-lg mx-auto"
+      style="background-color: #ffffff; max-width: 900px;"
+    >
+      <div class="card-body">
+
+        <!-- Título -->
+        <h3 class="text-center mb-3">
+          Panel del Estudiante
+        </h3>
+
+        <!-- Bienvenida -->
+        <p class="text-center text-muted mb-4">
+          Bienvenido al sistema de elecciones estudiantiles de CEUTEC.
+        </p>
+
+        <!-- Estado del proceso -->
+        <div class="row mb-4">
+          <div class="col-md-6 mb-3">
+            <div class="alert alert-success text-center">
+              <strong>Estado de la votación</strong>
+              <br />
+              Votación abierta
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="alert alert-warning text-center">
+              <strong>Estado del estudiante</strong>
+              <br />
+              Aún no ha emitido su voto
+            </div>
+          </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <div class="card h-100 text-center">
+              <div class="card-body">
+                <h5 class="card-title">Votar</h5>
+                <p class="card-text">
+                  Emite tu voto de forma segura y rápida.
+                </p>
+                <a routerLink="/votar" class="btn btn-primary">
+                  Ir a votar
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="card h-100 text-center">
+              <div class="card-body">
+                <h5 class="card-title">Candidatos</h5>
+                <p class="card-text">
+                  Consulta los candidatos y sus propuestas.
+                </p>
+                <a routerLink="/candidatos" class="btn btn-secondary">
+                  Ver candidatos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cerrar sesión -->
+        <div class="text-center mt-4">
+          <button class="btn btn-danger">
+            Cerrar sesión
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
