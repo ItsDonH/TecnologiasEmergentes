@@ -1,0 +1,106 @@
+<div class="container py-4">
+
+  <h2 class="text-center mb-4">Gestión de Candidatos</h2>
+
+  <!-- FORMULARIO -->
+  <div class="card mb-4">
+    <div class="card-body">
+
+      <input
+        class="form-control mb-2"
+        placeholder="Nombre del candidato"
+        [(ngModel)]="nuevo.nombre"
+      >
+
+      <input
+        class="form-control mb-2"
+        placeholder="Número de casilla"
+        [(ngModel)]="nuevo.ncasilla"
+      >
+
+      <input
+        class="form-control mb-2"
+        placeholder="Carrera del candidato"
+        [(ngModel)]="nuevo.carrera"
+      >
+
+      <textarea
+        class="form-control mb-2"
+        placeholder="Descripción o propuesta del candidato"
+        [(ngModel)]="nuevo.descripcion"
+      ></textarea>
+
+      <input
+        class="form-control mb-3"
+        placeholder="Nombre del partido"
+        [(ngModel)]="nuevo.npartido"
+      >
+
+      <!-- BOTONES DINÁMICOS -->
+      <button
+        *ngIf="!editandoId"
+        class="btn btn-success w-100"
+        (click)="crear()"
+      >
+        Agregar Candidato
+      </button>
+
+      <button
+        *ngIf="editandoId"
+        class="btn btn-warning w-100"
+        (click)="actualizar()"
+      >
+        Actualizar Candidato
+      </button>
+
+      <button
+        *ngIf="editandoId"
+        class="btn btn-secondary w-100 mt-2"
+        (click)="cancelarEdicion()"
+      >
+        Cancelar
+      </button>
+
+    </div>
+  </div>
+
+  <!-- TABLA -->
+  <table class="table table-bordered text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Casilla</th>
+        <th>Carrera</th>
+        <th>Descripción</th>
+        <th>Partido</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of candidatos">
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.ncasilla }}</td>
+        <td>{{ c.carrera }}</td>
+        <td>{{ c.descripcion }}</td>
+        <td>{{ c.npartido }}</td>
+        <td>
+          <button
+            class="btn btn-warning btn-sm me-2"
+            (click)="editar(c)"
+          >
+            Editar
+          </button>
+
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="eliminar(c.id)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
