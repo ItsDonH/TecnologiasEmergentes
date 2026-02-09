@@ -1,9 +1,7 @@
 <!-- Fondo general limpio -->
 <div 
   class="min-vh-100 d-flex align-items-center"
-  style="
-    background: linear-gradient(180deg, #f5f7fa, #e9ecef);
-  "
+  style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);"
 >
   <div class="container">
 
@@ -18,37 +16,30 @@
     </div>
 
     <!-- Panel -->
-    <div 
-      class="card shadow-lg mx-auto"
-      style="background-color: #ffffff; max-width: 900px;"
-    >
+    <div class="card shadow-lg mx-auto" style="max-width: 900px;">
       <div class="card-body">
 
-        <!-- Título -->
-        <h3 class="text-center mb-3">
-          Panel del Estudiante
-        </h3>
+        <h3 class="text-center mb-3">Panel del Estudiante</h3>
 
-        <!-- Bienvenida -->
         <p class="text-center text-muted mb-4">
           Bienvenido al sistema de elecciones estudiantiles de CEUTEC.
         </p>
 
-        <!-- Estado del proceso -->
+        <!-- Estado -->
         <div class="row mb-4">
           <div class="col-md-6 mb-3">
             <div class="alert alert-success text-center">
-              <strong>Estado de la votación</strong>
-              <br />
+              <strong>Estado de la votación</strong><br>
               Votación abierta
             </div>
           </div>
 
           <div class="col-md-6 mb-3">
-            <div class="alert alert-warning text-center">
-              <strong>Estado del estudiante</strong>
-              <br />
-              Aún no ha emitido su voto
+            <div 
+              class="alert text-center"
+              [ngClass]="yaVoto ? 'alert-danger' : 'alert-warning'">
+              <strong>Estado del estudiante</strong><br>
+              {{ yaVoto ? 'Ya ha emitido su voto' : 'Aún no ha emitido su voto' }}
             </div>
           </div>
         </div>
@@ -62,9 +53,14 @@
                 <p class="card-text">
                   Emite tu voto de forma segura y rápida.
                 </p>
-                <a routerLink="/votar" class="btn btn-primary">
+
+                <!-- 🔥 BOTÓN CONTROLADO -->
+                <button
+                  class="btn btn-primary"
+                  (click)="irAVotar()">
                   Ir a votar
-                </a>
+                </button>
+
               </div>
             </div>
           </div>
@@ -86,7 +82,9 @@
 
         <!-- Cerrar sesión -->
         <div class="text-center mt-4">
-          <button class="btn btn-danger">
+          <button
+            class="btn btn-danger"
+            (click)="cerrarSesion()">
             Cerrar sesión
           </button>
         </div>
