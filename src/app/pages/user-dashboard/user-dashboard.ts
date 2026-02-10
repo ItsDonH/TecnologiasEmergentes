@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // 👈 IMPORTANTE
+import { CommonModule } from '@angular/common'; // 
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [CommonModule,RouterModule ], // 👈 AQUÍ
+  imports: [CommonModule,RouterModule ], // 
   templateUrl: './user-dashboard.html',
   styleUrls: ['./user-dashboard.css']
 })
@@ -27,7 +27,7 @@ export class UserDashboard implements OnInit {
       return;
     }
 
-    this.router.navigate(['/votar']);
+    this.router.navigate(['/votacion']);
   }
 
   cerrarSesion() {
