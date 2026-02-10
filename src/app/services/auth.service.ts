@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { signInWithEmailAndPassword, getAuth, signOut } from 'firebase/auth';
+import { 
+  signInWithEmailAndPassword, 
+  getAuth, 
+  signOut,
+  onAuthStateChanged
+} from 'firebase/auth';
 import { app } from '../firebase.config';
 
 @Injectable({
@@ -20,4 +25,14 @@ export class AuthService {
   getCurrentUser() {
     return this.auth.currentUser;
   }
+
+  // ✅ NUEVO MÉTODO
+  getAuthState(): Promise<any> {
+    return new Promise((resolve) => {
+      onAuthStateChanged(this.auth, (user) => {
+        resolve(user);
+      });
+    });
+  }
+
 }

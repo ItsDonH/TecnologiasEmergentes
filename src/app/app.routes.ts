@@ -6,6 +6,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { CandidatosComponent } from './pages/candidatos/candidatos';
 import { UsuariosComponent } from './pages/usuarios/usuarios';
 import { AdminCandidatosComponent } from './pages/admincan/admincan';
+import { VotacionComponent } from './pages/votos/votos';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,6 +22,8 @@ export const routes: Routes = [
   { path: 'admin/candidatos', component: AdminCandidatosComponent },
 
   { path: 'admin/usuarios', component: UsuariosComponent },
+
+  { path: 'votacion', component: VotacionComponent },
 
   { path: '**', redirectTo: 'login' }
 ];

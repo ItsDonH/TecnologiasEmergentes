@@ -49,7 +49,7 @@ export class AdminCandidatosComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  // ➕ CREAR
+  // 🟢 CREAR
   async crear() {
     if (
       !this.nuevo.nombre ||
@@ -66,7 +66,7 @@ export class AdminCandidatosComponent implements OnInit {
     await this.cargar();
   }
 
-  // ✏️ CARGAR DATOS PARA EDITAR
+  // 🟡 CARGAR DATOS PARA EDITAR
   editar(c: any) {
     this.editandoId = c.id;
     this.nuevo = {
@@ -78,7 +78,7 @@ export class AdminCandidatosComponent implements OnInit {
     };
   }
 
-  // 🔄 ACTUALIZAR
+  // 🔵 ACTUALIZAR
   async actualizar() {
     if (!this.editandoId) return;
 
@@ -87,7 +87,7 @@ export class AdminCandidatosComponent implements OnInit {
     await this.cargar();
   }
 
-  // 🗑️ ELIMINAR
+  // 🔴 ELIMINAR
   async eliminar(id: string) {
     if (confirm('¿Eliminar candidato?')) {
       await this.candidatosService.eliminar(id);
@@ -95,12 +95,12 @@ export class AdminCandidatosComponent implements OnInit {
     }
   }
 
-  // ❌ CANCELAR EDICIÓN
-  cancelarEdicion() {
+   cancelarEdicion() {
     this.limpiarFormulario();
   }
 
-  // 🧹 LIMPIAR FORMULARIO
+
+  // 🔁 LIMPIAR Y VOLVER A MODO CREAR
   limpiarFormulario() {
     this.nuevo = {
       nombre: '',
