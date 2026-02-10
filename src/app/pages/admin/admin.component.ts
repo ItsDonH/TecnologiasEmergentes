@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
-  standalone: true,
-  imports: [RouterModule],
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
 })
+export class AdminComponent {
 
-export class AdminComponent {}
+  constructor(private router: Router) {}
+
+  cerrarSesion() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { EstudiantesService } from '../../services/estudiantes.service';
-
 
 @Component({
   selector: 'app-usuarios',
@@ -16,7 +16,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private estudiantesService: EstudiantesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -28,5 +29,12 @@ export class UsuariosComponent implements OnInit {
 
   mostrarVoto(valor: boolean): string {
     return valor ? 'Sí' : 'No';
+  }
+
+  cerrarSesion() {
+    localStorage.clear(); 
+    sessionStorage.clear();
+
+    this.router.navigate(['/login']);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CandidatosService } from '../../services/candidatos.service';
 
 @Component({
@@ -27,19 +28,28 @@ export class AdminCandidatosComponent implements OnInit {
 
   constructor(
     private candidatosService: CandidatosService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   async ngOnInit() {
     await this.cargar();
   }
 
+  // 🔐 CERRAR SESIÓN
+  cerrarSesion() {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  // 📥 CARGAR CANDIDATOS
   async cargar() {
     this.candidatos = await this.candidatosService.obtenerTodos();
     this.cdr.detectChanges();
   }
 
-  //CREAR
+  // ➕ CREAR
   async crear() {
     if (
       !this.nuevo.nombre ||
@@ -56,7 +66,7 @@ export class AdminCandidatosComponent implements OnInit {
     await this.cargar();
   }
 
-  //CARGAR DATOS PARA EDITAR
+  // ✏️ CARGAR DATOS PARA EDITAR
   editar(c: any) {
     this.editandoId = c.id;
     this.nuevo = {
@@ -68,7 +78,7 @@ export class AdminCandidatosComponent implements OnInit {
     };
   }
 
-  //ACTUALIZAR
+  // 🔄 ACTUALIZAR
   async actualizar() {
     if (!this.editandoId) return;
 
@@ -77,7 +87,7 @@ export class AdminCandidatosComponent implements OnInit {
     await this.cargar();
   }
 
-  //ELIMINAR
+  // 🗑️ ELIMINAR
   async eliminar(id: string) {
     if (confirm('¿Eliminar candidato?')) {
       await this.candidatosService.eliminar(id);
@@ -85,12 +95,12 @@ export class AdminCandidatosComponent implements OnInit {
     }
   }
 
-   cancelarEdicion() {
+  // ❌ CANCELAR EDICIÓN
+  cancelarEdicion() {
     this.limpiarFormulario();
   }
 
-
-  //LIMPIAR Y VOLVER A MODO CREAR
+  // 🧹 LIMPIAR FORMULARIO
   limpiarFormulario() {
     this.nuevo = {
       nombre: '',
