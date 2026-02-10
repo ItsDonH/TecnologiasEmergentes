@@ -2,20 +2,22 @@
   <div class="login-card">
     <h2>Inicio de Sesión</h2>
 
-    <label>Usuario</label>
-    <input type="text" placeholder="Ingrese su usuario">
+    <label>Correo institucional</label>
+    <input
+      type="email"
+      [(ngModel)]="email"
+      placeholder="correo@ceutec.edu"
+    />
 
     <label>Contraseña</label>
-    <input type="password" placeholder="Ingrese su contraseña">
+    <input
+      type="password"
+      [(ngModel)]="password"
+      placeholder="Ingrese su contraseña"
+    />
 
-    <label>Tipo de acceso</label>
-    <select>
-      <option>Usuario</option>
-      <option>Administrador</option>
-    </select>
+    <button (click)="login()">Ingresar</button>
 
-    <button>Ingresar</button>
-
-    <p class="error">Credenciales incorrectas</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
   </div>
 </div>

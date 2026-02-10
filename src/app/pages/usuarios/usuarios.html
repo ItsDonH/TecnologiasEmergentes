@@ -1,0 +1,39 @@
+<div class="container py-5">
+
+  <h2 class="text-center mb-4">
+    Gestión de Usuarios
+  </h2>
+
+  <table class="table table-bordered table-striped text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>N° Cuenta</th>
+        <th>Correo</th>
+        <th>Carrera</th>
+        <th>Sede</th>
+        <th>¿Ya votó?</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let u of usuarios">
+        <td>{{ u.ncuenta }}</td>
+        <td>{{ u.correo }}</td>
+        <td>{{ u.carrera }}</td>
+        <td>{{ u.sede }}</td>
+        <td>
+          <span
+            class="badge"
+            [ngClass]="u.yaVoto ? 'bg-success' : 'bg-danger'">
+            {{ mostrarVoto(u.yaVoto) }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="usuarios.length === 0" class="text-center text-muted">
+    No hay usuarios registrados
+  </div>
+
+</div>

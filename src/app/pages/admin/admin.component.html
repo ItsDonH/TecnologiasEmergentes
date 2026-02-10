@@ -9,30 +9,31 @@
   <main class="flex-grow-1 container py-5">
     <div class="row g-4 justify-content-center">
 
+      <!-- Gestión de Candidatos -->
       <div class="col-md-4">
-        <button class="btn btn-primary w-100 py-3">
-          Gestión de Candidatos
-        </button>
+      <button
+       class="btn btn-primary w-100 py-3"
+       routerLink="/admin/candidatos">
+      Gestión de Candidatos
+      </button>
       </div>
 
+      <!-- Gestión de Usuarios -->
       <div class="col-md-4">
-        <button class="btn btn-secondary w-100 py-3">
+        <button
+          class="btn btn-secondary w-100 py-3"
+          routerLink="/admin/usuarios">
           Gestión de Usuarios
         </button>
       </div>
-
-      <div class="col-md-4">
-        <button class="btn btn-success w-100 py-3">
-          Gestión de Elecciones
-        </button>
-      </div>
-
+      <!-- Resultados -->
       <div class="col-md-4">
         <button class="btn btn-info w-100 py-3 text-white">
           Resultados
         </button>
       </div>
 
+      <!-- Cerrar Sesión -->
       <div class="col-md-4">
         <button class="btn btn-danger w-100 py-3">
           Cerrar Sesión
