@@ -19,7 +19,7 @@ export class VotosService {
 
   private db = getFirestore(app);
 
-  // USADO POR ESTUDIANTES - Verificar si ya votó
+  
   async yaVoto(idEstudiante: string): Promise<boolean> {
     const refCol = collection(this.db, 'votos');
     const q = query(refCol, where('idEstudiante', '==', idEstudiante));
@@ -28,30 +28,30 @@ export class VotosService {
     return !snap.empty;
   }
 
-  // USADO POR ESTUDIANTES - Registrar voto
+  
   async registrarVoto(
   idEstudiante: string,
   idCandidato: string
 ): Promise<void> {
 
-  // Verificar si ya votó
+  
   const yaVoto = await this.yaVoto(idEstudiante);
 
   if (yaVoto) {
     throw new Error('El estudiante ya ha votado');
   }
 
-  // Crear voto
+  
   const voto = {
     fecha: Timestamp.now(),
     idCandidato,
     idEstudiante
   };
 
-  // Guardar voto
+  
   await addDoc(collection(this.db, 'votos'), voto);
 
-  // Actualizar estudiante
+  
   const estudianteRef = doc(this.db, 'estudiantes', idEstudiante);
 
   await updateDoc(estudianteRef, {
@@ -61,7 +61,7 @@ export class VotosService {
 }
 
 
-  // USADO POR ESTUDIANTES - Obtener voto de un estudiante
+  
   async obtenerVotoPorEstudiante(idEstudiante: string): Promise<any | null> {
     const refCol = collection(this.db, 'votos');
     const q = query(refCol, where('idEstudiante', '==', idEstudiante));
@@ -78,7 +78,7 @@ export class VotosService {
     };
   }
 
-  // USADO POR ADMIN - Obtener todos los votos
+  
   async obtenerTodos(): Promise<any[]> {
     const refCol = collection(this.db, 'votos');
     const snap = await getDocs(refCol);
@@ -89,7 +89,7 @@ export class VotosService {
     }));
   }
 
-  // USADO POR ADMIN - Contar votos por candidato
+  
   async contarVotosPorCandidato(idCandidato: string): Promise<number> {
     const refCol = collection(this.db, 'votos');
     const q = query(refCol, where('idCandidato', '==', idCandidato));

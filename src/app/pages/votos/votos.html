@@ -1,22 +1,22 @@
 <div class="container py-5">
 
-  <!-- 🔄 CARGANDO -->
+ 
   <div *ngIf="cargando" class="text-center">
     <div class="spinner-border text-primary"></div>
     <p class="mt-3">Cargando votación...</p>
   </div>
 
-  <!-- ❌ ERROR -->
+
   <div *ngIf="mensajeError" class="alert alert-danger text-center">
     {{ mensajeError }}
   </div>
 
-  <!-- ✅ MENSAJE ÉXITO -->
+ 
   <div *ngIf="mensajeExito" class="alert alert-success text-center">
     ¡Voto registrado correctamente!
   </div>
 
-  <!-- 👨‍🎓 ENCABEZADO -->
+ 
   <div *ngIf="estudiante && !cargando" class="card shadow mb-4 header-card">
     <div class="card-body text-center">
       <h4>Proceso de Votación Estudiantil</h4>
@@ -25,12 +25,12 @@
     </div>
   </div>
 
-  <!-- 🛑 YA VOTÓ -->
+  
   <div *ngIf="yaVoto" class="alert alert-info text-center">
     Ya has emitido tu voto. Gracias por participar.
   </div>
 
-  <!-- 🗳️ LISTA DE CANDIDATOS -->
+  
   <div *ngIf="!yaVoto && !cargando">
 
     <h5 class="mb-3 text-center">Selecciona un candidato</h5>
@@ -69,7 +69,7 @@
 
 </div>
 
-<!-- 🧾 MODAL CONFIRMACIÓN -->
+
 <div class="modal-backdrop-custom" *ngIf="mostrarConfirmacion">
 
   <div class="modal-custom">

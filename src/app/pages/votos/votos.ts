@@ -54,13 +54,12 @@ export class VotacionComponent implements OnInit {
       if (!user) {
         this.mensajeError = 'Debes iniciar sesión para votar';
         this.cargando = false;
-        // Opcional: redirigir al login
-        // this.router.navigate(['/login']);
+        
         this.cdr.detectChanges();
         return;
       }
 
-      // Obtener datos del estudiante desde Firestore
+      
       const estudianteData = await this.estudiantesService.obtenerPorCorreo(user.email!);
       
       if (!estudianteData) {
@@ -85,10 +84,10 @@ export class VotacionComponent implements OnInit {
     try {
       this.cargando = true;
       
-      // Verificar si ya votó
+      
       this.yaVoto = await this.votosService.yaVoto(this.estudiante.id);
       
-      // Cargar candidatos de su carrera
+      
       if (!this.yaVoto) {
         this.candidatos = await this.candidatosService.obtenerPorCarrera(
           this.estudiante.carrera
@@ -132,13 +131,13 @@ export class VotacionComponent implements OnInit {
         this.candidatoSeleccionado.id
       );
 
-      // Voto exitoso
+      
       this.yaVoto = true;
       this.mostrarConfirmacion = false;
       this.mensajeExito = true;
       this.votando = false;
       
-      // Ocultar mensaje de éxito después de 3 segundos
+      
       setTimeout(() => {
         this.mensajeExito = false;
         this.cdr.detectChanges();

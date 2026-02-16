@@ -39,10 +39,10 @@ export class LoginComponent {
         return;
       }
         
-      // ✅ GUARDAR LA CARRERA DEL USUARIO
+      
       localStorage.setItem('carrera', estudiante['carrera']);
       localStorage.setItem('yaVoto', estudiante['yaVoto']);
-      // 🔀 Redirección por rol
+      
      if (estudiante['rol'] === 'admin') {
       this.router.navigate(['/admin']);
       } else {

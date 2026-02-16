@@ -26,7 +26,7 @@ export class AuthService {
     return this.auth.currentUser;
   }
 
-  // ✅ NUEVO MÉTODO
+  
   getAuthState(): Promise<any> {
     return new Promise((resolve) => {
       onAuthStateChanged(this.auth, (user) => {
