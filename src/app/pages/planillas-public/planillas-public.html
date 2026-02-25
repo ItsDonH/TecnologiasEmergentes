@@ -1,0 +1,46 @@
+<div class="container py-5">
+
+  <h2 class="text-center mb-4">
+    Planillas – {{ estudiante?.carrera }}
+  </h2>
+
+  <!-- 🔄 Cargando -->
+  <div *ngIf="cargando" class="text-center">
+    <div class="spinner-border text-primary"></div>
+    <p class="mt-3">Cargando planillas...</p>
+  </div>
+
+  <!-- ❌ Error -->
+  <div *ngIf="mensajeError" class="alert alert-danger text-center">
+    {{ mensajeError }}
+  </div>
+
+  <!-- ⚠ Sin planillas -->
+  <div *ngIf="!cargando && planillas.length === 0" class="text-center text-muted">
+    No hay planillas disponibles para tu carrera.
+  </div>
+
+  <!-- ✅ Lista -->
+  <div class="row" *ngIf="!cargando && planillas.length > 0">
+
+    <div class="col-md-4 mb-4" *ngFor="let p of planillas">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+
+          <h5 class="fw-bold">{{ p.nombrePlanilla }}</h5>
+
+          <p><strong>Presidente:</strong> {{ p.presidente }}</p>
+          <p><strong>Vicepresidente:</strong> {{ p.vicepresidente }}</p>
+          <p><strong>Secretario:</strong> {{ p.secretario }}</p>
+
+          <p class="text-muted mt-2">
+            {{ p.descripcionGeneral }}
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
