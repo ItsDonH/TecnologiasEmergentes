@@ -19,7 +19,7 @@ export class CandidatosService {
 
   private db = getFirestore(app);
 
-  // 🔵 USADO POR ESTUDIANTES (NO TOCAR)
+  // USADO POR ESTUDIANTES (NO TOCAR)
   async obtenerPorCarrera(carrera: string): Promise<any[]> {
     const refCol = collection(this.db, 'candidatos');
     const q = query(refCol, where('carrera', '==', carrera));
@@ -31,7 +31,7 @@ export class CandidatosService {
     }));
   }
 
-  // 🔴 USADO POR ADMIN
+  // USADO POR ADMIN
   async obtenerTodos(): Promise<any[]> {
     const refCol = collection(this.db, 'candidatos');
     const snap = await getDocs(refCol);
@@ -42,17 +42,17 @@ export class CandidatosService {
     }));
   }
 
-  // 🔴 CREAR CANDIDATO (SIN IMAGEN)
+  // CREAR CANDIDATO (SIN IMAGEN)
   async crear(data: any) {
     return addDoc(collection(this.db, 'candidatos'), data);
   }
 
-  // 🔴 ACTUALIZAR
+  // ACTUALIZAR
   async actualizar(id: string, data: any) {
     return updateDoc(doc(this.db, 'candidatos', id), data);
   }
 
-  // 🔴 ELIMINAR
+  // ELIMINAR
   async eliminar(id: string) {
     return deleteDoc(doc(this.db, 'candidatos', id));
   }

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; // 
 import { RouterModule } from '@angular/router';
+
+
 
 @Component({
   selector: 'app-user-dashboard',
@@ -21,14 +23,16 @@ export class UserDashboard implements OnInit {
     this.yaVoto = valor === 'true';
   }
 
-  irAVotar() {
-    if (this.yaVoto) {
-      alert('Usted ya votó');
-      return;
-    }
+  mostrarAlerta = false;
 
-    this.router.navigate(['/votacion']);
+irAVotar() {
+  if (this.yaVoto) {
+    this.mostrarAlerta = true;
+    setTimeout(() => this.mostrarAlerta = false, 4000); // se oculta solo
+    return;
   }
+  this.router.navigate(['/votacion']);
+}
 
   cerrarSesion() {
     localStorage.clear();

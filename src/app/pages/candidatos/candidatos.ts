@@ -32,14 +32,18 @@ export class CandidatosComponent implements OnInit {
         this.carreraUsuario
       );
 
-      // 🔥 FUERZA a Angular a refrescar el HTML
+      // FUERZA a Angular a refrescar el HTML
       this.cdr.detectChanges();
 
       console.log('Candidatos visibles:', this.candidatos);
     }
   }
+ 
+  async irAlHome() {
+  await this.router.navigate(['/usuario']);
+}
 
-  // 🔒 Método para cerrar sesión
+  // Método para cerrar sesión
   async logout() {
     try {
       await this.authService.logout();

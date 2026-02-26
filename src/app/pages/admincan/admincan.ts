@@ -23,7 +23,7 @@ export class AdminCandidatosComponent implements OnInit {
     npartido: ''
   };
 
-  // 🔑 ID DEL CANDIDATO EN EDICIÓN
+  // ID DEL CANDIDATO EN EDICIÓN
   editandoId: string | null = null;
 
   constructor(
@@ -36,20 +36,23 @@ export class AdminCandidatosComponent implements OnInit {
     await this.cargar();
   }
 
-  // 🔐 CERRAR SESIÓN
+  // CERRAR SESIÓN
   cerrarSesion() {
     localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 
-  // 📥 CARGAR CANDIDATOS
+  // CARGAR CANDIDATOS
   async cargar() {
     this.candidatos = await this.candidatosService.obtenerTodos();
     this.cdr.detectChanges();
   }
 
-  // 🟢 CREAR
+  async irAlHome() {
+  await this.router.navigate(['/admin']);
+}
+  // CREAR
   async crear() {
     if (
       !this.nuevo.nombre ||
@@ -66,7 +69,7 @@ export class AdminCandidatosComponent implements OnInit {
     await this.cargar();
   }
 
-  // 🟡 CARGAR DATOS PARA EDITAR
+  // CARGAR DATOS PARA EDITAR
   editar(c: any) {
     this.editandoId = c.id;
     this.nuevo = {
@@ -78,7 +81,7 @@ export class AdminCandidatosComponent implements OnInit {
     };
   }
 
-  // 🔵 ACTUALIZAR
+  // ACTUALIZAR
   async actualizar() {
     if (!this.editandoId) return;
 
@@ -87,7 +90,7 @@ export class AdminCandidatosComponent implements OnInit {
     await this.cargar();
   }
 
-  // 🔴 ELIMINAR
+  // ELIMINAR
   async eliminar(id: string) {
     if (confirm('¿Eliminar candidato?')) {
       await this.candidatosService.eliminar(id);
@@ -100,7 +103,7 @@ export class AdminCandidatosComponent implements OnInit {
   }
 
 
-  // 🔁 LIMPIAR Y VOLVER A MODO CREAR
+  // LIMPIAR Y VOLVER A MODO CREAR
   limpiarFormulario() {
     this.nuevo = {
       nombre: '',

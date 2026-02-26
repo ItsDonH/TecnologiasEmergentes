@@ -16,7 +16,7 @@ export class EstudiantesService {
 
   private db = getFirestore(app);
 
-  // 🔹 USADO EN LOGIN
+  // USADO EN LOGIN
   async obtenerPorCorreo(correo: string): Promise<any | null> {
     const ref = collection(this.db, 'estudiantes');
     const q = query(ref, where('correo', '==', correo), limit(1));
@@ -32,7 +32,7 @@ export class EstudiantesService {
     };
   }
 
-  // 🔹 USADO EN GESTIÓN DE USUARIOS
+  //  USADO EN GESTIÓN DE USUARIOS
   async obtenerEstudiantes(): Promise<any[]> {
     const ref = collection(this.db, 'estudiantes');
     const snap = await getDocs(ref);

@@ -31,6 +31,9 @@ export class UsuariosComponent implements OnInit {
     return valor ? 'Sí' : 'No';
   }
 
+  async irAlHome() {
+  await this.router.navigate(['/admin']);
+}
   cerrarSesion() {
     localStorage.clear(); 
     sessionStorage.clear();
