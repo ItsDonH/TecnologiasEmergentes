@@ -5,12 +5,17 @@
   <div class="card mb-4">
     <div class="card-body">
 
-      <input class="form-control mb-2" placeholder="Nombre Planilla" [(ngModel)]="nueva.nombrePlanilla">
       <input class="form-control mb-2" placeholder="Carrera" [(ngModel)]="nueva.carrera">
+      <input class="form-control mb-2" placeholder="Partido" [(ngModel)]="nueva.partido">
+      <input class="form-control mb-2" placeholder="Lema" [(ngModel)]="nueva.lema">
       <input class="form-control mb-2" placeholder="Presidente" [(ngModel)]="nueva.presidente">
       <input class="form-control mb-2" placeholder="Vicepresidente" [(ngModel)]="nueva.vicepresidente">
       <input class="form-control mb-2" placeholder="Secretario" [(ngModel)]="nueva.secretario">
-      <textarea class="form-control mb-3" placeholder="Propuesta General" [(ngModel)]="nueva.descripcionGeneral"></textarea>
+      <input class="form-control mb-2" placeholder="Tesorero" [(ngModel)]="nueva.tesorero">
+      <input class="form-control mb-2" placeholder="Sede" [(ngModel)]="nueva.sede">
+      <textarea class="form-control mb-2" placeholder="Propuesta" 
+      [(ngModel)]="nueva.propuesta">
+</textarea>
 
       <button *ngIf="!editandoId" class="btn btn-success w-100" (click)="crear()">
         Crear Planilla
@@ -26,21 +31,25 @@
   <table class="table table-bordered text-center">
     <thead class="table-dark">
       <tr>
-        <th>Planilla</th>
+        <th>Partido</th>
         <th>Carrera</th>
         <th>Presidente</th>
         <th>Vicepresidente</th>
         <th>Secretario</th>
+        <th>Tesorero</th>
+        <th>Sede</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let p of planillas">
-        <td>{{ p.nombrePlanilla }}</td>
+        <td>{{ p.partido }}</td>
         <td>{{ p.carrera }}</td>
         <td>{{ p.presidente }}</td>
         <td>{{ p.vicepresidente }}</td>
         <td>{{ p.secretario }}</td>
+        <td>{{ p.tesorero }}</td>
+        <td>{{ p.sede }}</td>
         <td>
           <button class="btn btn-warning btn-sm me-2" (click)="editar(p)">Editar</button>
           <button class="btn btn-danger btn-sm" (click)="eliminar(p.id)">Eliminar</button>

@@ -15,18 +15,21 @@ export class PlanillasComponent implements OnInit {
   editandoId: string | null = null;
 
   nueva: any = {
-    nombrePlanilla: '',
     carrera: '',
+    partido: '',
+    lema: '',
     presidente: '',
     vicepresidente: '',
     secretario: '',
-    descripcionGeneral: ''
+    tesorero: '',
+    sede: '',
+    propuesta: ''
   };
 
   constructor(
     private planillasService: PlanillasService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   async ngOnInit() {
     await this.cargarPlanillas();
@@ -39,7 +42,7 @@ export class PlanillasComponent implements OnInit {
 
   async crear() {
     if (
-      !this.nueva.nombrePlanilla ||
+      !this.nueva.partido ||
       !this.nueva.carrera ||
       !this.nueva.presidente
     ) {
@@ -79,12 +82,15 @@ export class PlanillasComponent implements OnInit {
   resetFormulario() {
     this.editandoId = null;
     this.nueva = {
-      nombrePlanilla: '',
       carrera: '',
+      partido: '',
+      lema: '',
       presidente: '',
       vicepresidente: '',
       secretario: '',
-      descripcionGeneral: ''
+      tesorero: '',
+      sede: '',
+      propuesta: ''
     };
   }
 }
