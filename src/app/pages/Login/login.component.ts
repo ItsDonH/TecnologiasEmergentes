@@ -39,10 +39,17 @@ export class LoginComponent {
         return;
       }
         
+<<<<<<< HEAD
       
       localStorage.setItem('carrera', estudiante['carrera']);
       localStorage.setItem('yaVoto', estudiante['yaVoto']);
       
+=======
+      //  GUARDAR LA CARRERA DEL USUARIO
+      localStorage.setItem('carrera', estudiante['carrera']);
+      localStorage.setItem('yaVoto', estudiante['yaVoto']);
+      // redirección por rol
+>>>>>>> c541644a8e14792225ba8cc9c4f634e7c8885ab6
      if (estudiante['rol'] === 'admin') {
       this.router.navigate(['/admin']);
       } else {

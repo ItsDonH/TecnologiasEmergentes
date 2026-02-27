@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+<<<<<<< HEAD
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { VotosService } from '../../services/votos.service';
+=======
+
+>>>>>>> c541644a8e14792225ba8cc9c4f634e7c8885ab6
 
 @Component({
   selector: 'app-user-dashboard',
@@ -45,14 +49,16 @@ export class UserDashboard implements OnInit {
     this.yaVoto = await this.votosService.yaVoto(this.estudiante.id);
   }
 
-  irAVotar() {
-    if (this.yaVoto) {
-      alert('Usted ya votó');
-      return;
-    }
+  mostrarAlerta = false;
 
-    this.router.navigate(['/votacion']);
+irAVotar() {
+  if (this.yaVoto) {
+    this.mostrarAlerta = true;
+    setTimeout(() => this.mostrarAlerta = false, 4000); // se oculta solo
+    return;
   }
+  this.router.navigate(['/votacion']);
+}
 
   cerrarSesion() {
     localStorage.clear();

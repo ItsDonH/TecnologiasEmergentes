@@ -1,18 +1,20 @@
+<<<<<<< HEAD
 
 <div 
   class="min-vh-100 d-flex align-items-center"
   style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);"
 >
+=======
+<!-- Fondo general limpio -->
+<div class="min-vh-100 d-flex align-items-center" style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);">
+>>>>>>> c541644a8e14792225ba8cc9c4f634e7c8885ab6
   <div class="container">
 
     
     <div class="text-center mb-4">
-      <img 
-        src="https://upload.wikimedia.org/wikipedia/commons/8/8d/CEUTEC_HONDURAS.png"
-        alt="Logo CEUTEC"
-        class="img-fluid"
-        style="max-width: 468px;"
-      />
+      <img src="
+https://portal.unitec.edu/Documentos/2025/CEUTEC/Logos/ORIGINAL_CEUTEC/Original.png" alt="Logo CEUTEC"
+        class="img-fluid" style="max-width: 468px;" />
     </div>
 
     
@@ -35,9 +37,7 @@
           </div>
 
           <div class="col-md-6 mb-3">
-            <div 
-              class="alert text-center"
-              [ngClass]="yaVoto ? 'alert-danger' : 'alert-warning'">
+            <div class="alert text-center" [ngClass]="yaVoto ? 'alert-danger' : 'alert-warning'">
               <strong>Estado del estudiante</strong><br>
               {{ yaVoto ? 'Ya ha emitido su voto' : 'Aún no ha emitido su voto' }}
             </div>
@@ -54,12 +54,22 @@
                   Emite tu voto de forma segura y rápida.
                 </p>
 
+<<<<<<< HEAD
               
                 <button
                   class="btn btn-primary"
                   (click)="irAVotar()">
+=======
+                <button class="btn btn-primary" (click)="irAVotar()">
+>>>>>>> c541644a8e14792225ba8cc9c4f634e7c8885ab6
                   Ir a votar
                 </button>
+
+                <!-- Alerta inline -->
+                <div *ngIf="mostrarAlerta" class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+                  ⚠️ Usted ya votó en esta elección
+                  <button type="button" class="btn-close" (click)="mostrarAlerta = false"></button>
+                </div>
 
               </div>
             </div>
@@ -82,9 +92,7 @@
 
         
         <div class="text-center mt-4">
-          <button
-            class="btn btn-danger"
-            (click)="cerrarSesion()">
+          <button class="btn btn-danger" (click)="cerrarSesion()">
             Cerrar sesión
           </button>
         </div>
