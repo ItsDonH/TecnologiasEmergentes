@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PlanillasService } from '../../services/planillas.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-planillas',
@@ -28,7 +29,8 @@ export class PlanillasComponent implements OnInit {
 
   constructor(
     private planillasService: PlanillasService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+     private router: Router
   ) { }
 
   async ngOnInit() {
@@ -92,5 +94,14 @@ export class PlanillasComponent implements OnInit {
       sede: '',
       propuesta: ''
     };
+  }
+
+    async irAlHome() {
+  await this.router.navigate(['/admin']);
+}
+
+  cerrarSesion() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

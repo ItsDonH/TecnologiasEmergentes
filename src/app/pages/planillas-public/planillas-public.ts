@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PlanillasService } from '../../services/planillas.service';
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/estudiantes.service';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'app-planillas-public',
@@ -22,11 +23,21 @@ export class PlanillasPublicComponent implements OnInit {
     private planillasService: PlanillasService,
     private authService: AuthService,
     private estudiantesService: EstudiantesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   async ngOnInit() {
     await this.cargarDatos();
+  }
+
+      async irAlHome() {
+  await this.router.navigate(['/usuario']);
+}
+
+  cerrarSesion() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   async cargarDatos() {

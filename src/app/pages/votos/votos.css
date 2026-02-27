@@ -1,0 +1,141 @@
+/* OVERLAY */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease;
+}
+
+/* TARJETA MODAL */
+.modal-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: slideUp 0.3s ease;
+}
+
+/* ÍCONO */
+.modal-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* TEXTOS */
+.modal-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #1a1a2e;
+  margin-bottom: 0.4rem;
+}
+
+.modal-subtitle {
+  color: #666;
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+/* BADGE con nombre de planilla */
+.planilla-badge {
+  display: inline-block;
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+  border: 2px solid #c7d2fe;
+}
+
+/* ADVERTENCIA */
+.modal-warning {
+  font-size: 0.85rem;
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* BOTONES */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-cancelar {
+  padding: 0.6rem 1.4rem;
+  border-radius: 10px;
+  border: 2px solid #e5e7eb;
+  background: white;
+  color: #374151;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancelar:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.btn-confirmar {
+  padding: 0.6rem 1.6rem;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #0e02e3, #280cc3);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 150px;
+}
+
+.btn-confirmar:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+}
+
+.btn-confirmar:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* SPINNER botón */
+.spinner-mini {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

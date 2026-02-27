@@ -26,11 +26,7 @@ export class AuthService {
     return this.auth.currentUser;
   }
 
-<<<<<<< HEAD
-  
-=======
   // MÉTODO PARA OBTENER EL ESTADO DE AUTENTICACIÓN EN TIEMPO REAL
->>>>>>> c541644a8e14792225ba8cc9c4f634e7c8885ab6
   getAuthState(): Promise<any> {
     return new Promise((resolve) => {
       onAuthStateChanged(this.auth, (user) => {
