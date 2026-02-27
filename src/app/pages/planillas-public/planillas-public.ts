@@ -51,7 +51,6 @@ export class PlanillasPublicComponent implements OnInit {
 
       this.estudiante = estudianteData;
 
-      // 🔥 FILTRO POR CARRERA EXACTA
       this.planillas = await this.planillasService.obtenerPlanillasPorCarrera(
         this.estudiante.carrera
       );
