@@ -7,6 +7,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios';
 import { VotacionComponent } from './pages/votos/votos';
 import { PlanillasComponent } from './pages/planillas/planillas';
 import { PlanillasPublicComponent } from './pages/planillas-public/planillas-public';
+import { DashboardComponent } from './pages/dashboard/dashboard'
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,13 +16,13 @@ export const routes: Routes = [
 
   { path: 'usuario', component: UserDashboard },
 
-  // 🔥 RUTA PUBLICA (ESTUDIANTE)
+
   { path: 'planillas', component: PlanillasPublicComponent },
 
-  // 🔥 RUTAS ADMIN
   { path: 'admin', component: AdminComponent },
   { path: 'admin/planillas', component: PlanillasComponent },
   { path: 'admin/usuarios', component: UsuariosComponent },
+  { path: 'admin/dashboard', component: DashboardComponent},
 
   { path: 'votacion', component: VotacionComponent },
 

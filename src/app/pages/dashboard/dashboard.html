@@ -1,0 +1,122 @@
+<div class="resultados-wrapper">
+
+  <!-- HEADER -->
+  <div class="resultados-header">
+    <h2>📊 Resultados de Elecciones</h2>
+    <p>Visualización en tiempo real de los votos emitidos</p>
+  </div>
+
+  <!-- CARGANDO -->
+  <div *ngIf="cargando" class="loading-state">
+    <div class="spinner"></div>
+    <p>Cargando resultados...</p>
+  </div>
+
+  <div *ngIf="!cargando">
+
+    <!-- KPI CARDS -->
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <span class="kpi-num">{{ totalVotos }}</span>
+        <span class="kpi-label">Total de votos</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-num">{{ planillas.length }}</span>
+        <span class="kpi-label">Planillas</span>
+      </div>
+      <div class="kpi-card highlight">
+        <span class="kpi-num small">{{ ganador }}</span>
+        <span class="kpi-label">🏆 Partido líder</span>
+      </div>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="filtros-card">
+      <div class="filtro-group">
+        <label>Carrera</label>
+        <select [(ngModel)]="filtroCarrera" (change)="aplicarFiltros()">
+          <option value="todas">Todas las carreras</option>
+          <option *ngFor="let c of carreras" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+
+      <div class="filtro-group">
+        <label>Sede</label>
+        <select [(ngModel)]="filtroSede" (change)="aplicarFiltros()">
+          <option value="todas">Todas las sedes</option>
+          <option *ngFor="let s of sedes" [value]="s">{{ s }}</option>
+        </select>
+      </div>
+
+      <button class="btn-reset" (click)="filtroCarrera='todas'; filtroSede='todas'; aplicarFiltros()">
+        ✕ Limpiar filtros
+      </button>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-bar">
+      <button 
+        [class.active]="tabActivo === 'barras'"
+        (click)="cambiarTab('barras')"
+      >📊 Barras</button>
+      <button 
+        [class.active]="tabActivo === 'dona'"
+        (click)="cambiarTab('dona')"
+      >🍩 Distribución</button>
+      <button 
+        [class.active]="tabActivo === 'ambos'"
+        (click)="cambiarTab('ambos')"
+      >⊞ Ambos</button>
+    </div>
+
+    <!-- CHARTS -->
+    <div class="charts-area">
+
+      <div class="chart-box" *ngIf="tabActivo === 'barras' || tabActivo === 'ambos'">
+        <h6>Votos por partido</h6>
+        <canvas id="chartBarras"></canvas>
+      </div>
+
+      <div class="chart-box" *ngIf="tabActivo === 'dona' || tabActivo === 'ambos'">
+        <h6>Distribución porcentual</h6>
+        <canvas id="chartDona"></canvas>
+      </div>
+
+    </div>
+
+    <!-- TABLA RESUMEN -->
+    <div class="tabla-resumen">
+      <h6>Detalle por planilla</h6>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Partido</th>
+            <th>Presidente</th>
+            <th>Carrera</th>
+            <th>Sede</th>
+            <th>Votos</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let planilla of planillas; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <span class="color-dot" [style.background]="chartColores[i]"></span>
+              {{ planilla.partido }}
+            </td>
+            <td>{{ planilla.presidente }}</td>
+            <td>{{ planilla.carrera }}</td>
+            <td>{{ planilla.sede }}</td>
+            <td><strong>{{ chartData[i] || 0 }}</strong></td>
+            <td>
+              {{ totalVotos > 0 ? ((chartData[i] || 0) / totalVotos * 100).toFixed(1) : 0 }}%
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
