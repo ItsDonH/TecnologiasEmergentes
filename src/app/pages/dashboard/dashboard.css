@@ -1,3 +1,136 @@
+/* =============================================
+   CEUTEC – SISTEMA ELECTORAL UNIVERSITARIO
+   Paleta institucional: Azul marino + Dorado
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --ceutec-navy:   #0a1f44;
+  --ceutec-blue:   #1a3a6e;
+  --ceutec-gold:   #c9a227;
+  --ceutec-gold-light: #f0d080;
+  --ceutec-light:  #f4f6fb;
+  --ceutec-white:  #ffffff;
+  --ceutec-gray:   #6b7280;
+  --ceutec-border: #dce3f0;
+  --ceutec-accent: #2563eb;
+  --shadow-card:   0 4px 20px rgba(10,31,68,0.10);
+  --radius-card:   18px;
+  --font-display:  'Playfair Display', serif;
+  --font-body:     'DM Sans', sans-serif;
+}
+
+/* ── NAVBAR ──────────────────────────────────── */
+.navbar-ceutec {
+  background: linear-gradient(135deg, var(--ceutec-navy) 0%, var(--ceutec-blue) 100%);
+  padding: 0;
+  border-bottom: 3px solid var(--ceutec-gold);
+  box-shadow: 0 4px 24px rgba(10,31,68,0.35);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+}
+
+.navbar-ceutec .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0;
+  text-decoration: none;
+}
+
+.navbar-brand-logo {
+  width: 46px;
+  height: 46px;
+  background: var(--ceutec-white);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.navbar-brand-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.navbar-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ceutec-white);
+  letter-spacing: 0.03em;
+}
+
+.navbar-brand-sub {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--ceutec-gold-light);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+}
+
+.navbar-ceutec .nav-link {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #808181a5 !important;        /* blanco-grisáceo siempre visible */
+  padding: 1.5rem 1rem !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+  top: 3px;
+}
+
+.navbar-ceutec .nav-link:hover,
+.navbar-ceutec .nav-link.active-link {
+  color: var(--ceutec-gold) !important;
+  border-bottom-color: var(--ceutec-gold);
+}
+
+.navbar-ceutec .navbar-toggler {
+  border-color: rgba(201,162,39,0.4);
+}
+.navbar-ceutec .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(201,162,39,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-badge {
+  background: var(--ceutec-gold);
+  color: var(--ceutec-navy);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  margin-left: 0.4rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.65; }
+}
+
+
 .resultados-wrapper {
   max-width: 1100px;
   margin: 0 auto;

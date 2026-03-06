@@ -1,8 +1,50 @@
 <div class="resultados-wrapper">
 
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg navbar-ceutec">
+  <div class="container">
+
+    <!-- BRAND / LOGO -->
+    <a class="navbar-brand" href="#">
+      <div class="navbar-brand-logo">
+        <img src="/assets/logo.png" alt="Logo sistema" />
+      </div>
+      <div class="navbar-brand-text">
+        <span class="navbar-brand-name">CEUTEC</span>
+        <span class="navbar-brand-sub">Universidad Tecnológica Centroamericana</span>
+      </div>
+    </a>
+
+    <!-- TOGGLER MÓVIL -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navCeutec"
+            aria-controls="navCeutec" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- LINKS -->
+    <div class="collapse navbar-collapse" id="navCeutec">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Planillas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active-link" href="#">
+            Resultados
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
   <!-- HEADER -->
   <div class="resultados-header">
-    <h2>📊 Resultados de Elecciones</h2>
+    <h2>Resultados de Elecciones</h2>
     <p>Visualización en tiempo real de los votos emitidos</p>
   </div>
 
@@ -25,7 +67,7 @@
         <span class="kpi-label">Planillas</span>
       </div>
       <div class="kpi-card highlight">
-        <span class="kpi-num small">{{ ganador }}</span>
+        <span class="kpi-num ">{{ ganador }}</span>
         <span class="kpi-label">🏆 Partido líder</span>
       </div>
     </div>
