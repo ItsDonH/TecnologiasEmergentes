@@ -36,10 +36,12 @@ export class PlanillasPublicComponent implements OnInit {
   await this.router.navigate(['/usuario']);
 }
 
-  cerrarSesion() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
+  async cerrarSesion() {
+  await this.authService.logout();
+  localStorage.clear();
+  sessionStorage.clear();
+  this.router.navigate(['/login']);
+}
 
   async cargarDatos() {
     try {

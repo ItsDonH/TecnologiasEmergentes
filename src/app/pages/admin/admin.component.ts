@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar.component';
-
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-admin',
   standalone: true,
@@ -12,10 +12,15 @@ import { NavbarComponent } from '../../components/navbar.component';
 })
 export class AdminComponent {
 
-  constructor(private router: Router) {}
+constructor(
+  private authService: AuthService,
+  private router: Router
+) {}
 
-  cerrarSesion() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
+  async cerrarSesion() {
+  await this.authService.logout();
+  localStorage.clear();
+  sessionStorage.clear();
+  this.router.navigate(['/login']);
+}
 }

@@ -8,23 +8,23 @@ import { VotacionComponent } from './pages/votos/votos';
 import { PlanillasComponent } from './pages/planillas/planillas';
 import { PlanillasPublicComponent } from './pages/planillas-public/planillas-public';
 import { DashboardComponent } from './pages/dashboard/dashboard'
+import { AuthGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
 
-  { path: 'usuario', component: UserDashboard },
+  { path: 'usuario', component: UserDashboard, canActivate:[AuthGuard] },
 
+  { path: 'planillas', component: PlanillasPublicComponent, canActivate:[AuthGuard] },
 
-  { path: 'planillas', component: PlanillasPublicComponent },
+  { path: 'admin', component: AdminComponent, canActivate:[AuthGuard] },
+  { path: 'admin/planillas', component: PlanillasComponent, canActivate:[AuthGuard] },
+  { path: 'admin/usuarios', component: UsuariosComponent, canActivate:[AuthGuard] },
+  { path: 'admin/dashboard', component: DashboardComponent, canActivate:[AuthGuard] },
 
-  { path: 'admin', component: AdminComponent },
-  { path: 'admin/planillas', component: PlanillasComponent },
-  { path: 'admin/usuarios', component: UsuariosComponent },
-  { path: 'admin/dashboard', component: DashboardComponent},
-
-  { path: 'votacion', component: VotacionComponent },
+  { path: 'votacion', component: VotacionComponent, canActivate:[AuthGuard] },
 
   { path: '**', redirectTo: 'login' }
 ];

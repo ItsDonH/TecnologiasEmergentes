@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { NavbarComponent } from '../../components/navbar.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -18,6 +19,7 @@ export class UsuariosComponent implements OnInit {
   constructor(
     private estudiantesService: EstudiantesService,
     private cdr: ChangeDetectorRef,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -42,9 +44,10 @@ export class UsuariosComponent implements OnInit {
     await this.router.navigate(['/admin']);
   }
 
-  cerrarSesion() {
-    localStorage.clear();
-    sessionStorage.clear();
-    this.router.navigate(['/login']);
-  }
+  async cerrarSesion() {
+  await this.authService.logout();
+  localStorage.clear();
+  sessionStorage.clear();
+  this.router.navigate(['/login']);
+}
 }

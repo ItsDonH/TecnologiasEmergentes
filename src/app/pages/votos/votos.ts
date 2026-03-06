@@ -89,10 +89,12 @@ export class VotacionComponent implements OnInit {
   }
 
   
-  cerrarSesion() {
+  async cerrarSesion() {
+    await this.authService.logout();
     localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['/login']);
-  }
+    }
 
  async confirmarVoto() {
   if (!this.planillaSeleccionada) return;

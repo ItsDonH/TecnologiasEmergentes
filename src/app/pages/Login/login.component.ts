@@ -43,6 +43,8 @@ export class LoginComponent {
       // GUARDAR LA CARRERA DEL USUARIO
       localStorage.setItem('carrera', estudiante['carrera']);
       localStorage.setItem('yaVoto', estudiante['yaVoto']);
+      //Guardar Rol usuario
+      localStorage.setItem('rol', estudiante['rol']);
 
       // Redirección por rol
       if (estudiante['rol'] === 'admin') {

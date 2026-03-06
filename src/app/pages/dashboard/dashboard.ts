@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef } from '
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ResultadosService } from '../../services/dashboard.service';
-
+import { AuthService } from '../../services/auth.service';
 import { Chart, registerables } from 'chart.js';
 import { RouterModule, Router } from '@angular/router';
 
@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private resultadosService: ResultadosService,
     private cdr: ChangeDetectorRef,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -260,10 +261,12 @@ renderDona() {
   URL.revokeObjectURL(url);
 }
 
-    cerrarSesion() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
+  async cerrarSesion() {
+  await this.authService.logout();
+  localStorage.clear();
+  sessionStorage.clear();
+  this.router.navigate(['/login']);
+}
 
   get ganador(): string {
     if (!this.chartData.length) return '—';

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-planillas',
@@ -32,6 +33,7 @@ export class PlanillasComponent implements OnInit {
   constructor(
     private planillasService: PlanillasService,
     private cdr: ChangeDetectorRef,
+    private authService: AuthService,
      private router: Router
   ) { }
 
@@ -102,10 +104,12 @@ export class PlanillasComponent implements OnInit {
   await this.router.navigate(['/admin']);
 }
 
-  cerrarSesion() {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-  }
+  async cerrarSesion() {
+  await this.authService.logout();
+  localStorage.clear();
+  sessionStorage.clear();
+  this.router.navigate(['/login']);
+}
 
   
 }
