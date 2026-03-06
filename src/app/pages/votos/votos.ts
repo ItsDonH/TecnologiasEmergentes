@@ -5,11 +5,12 @@ import { VotosService } from '../../services/votos.service';
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { PlanillasService } from '../../services/planillas.service';
+import { NavbarComponent } from '../../components/navbar.component';
 
 @Component({
   selector: 'app-votacion',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './votos.html',
   styleUrls: ['./votos.css']
 })

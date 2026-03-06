@@ -5,11 +5,12 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { VotosService } from '../../services/votos.service';
+import { NavbarComponent } from '../../components/navbar.component';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarComponent],
   templateUrl: './user-dashboard.html',
   styleUrls: ['./user-dashboard.css']
 })
@@ -17,6 +18,7 @@ export class UserDashboard implements OnInit {
 
   yaVoto: boolean = false;
   estudiante: any = null;
+  mostrarAlerta = false;
 
   constructor(
     private router: Router,
@@ -25,14 +27,14 @@ export class UserDashboard implements OnInit {
     private votosService: VotosService
   ) {}
 
- async ngOnInit() {
-  const local = localStorage.getItem('yaVoto');
-  if (local === 'true') {
-    this.yaVoto = true;
+  async ngOnInit() {
+    const local = localStorage.getItem('yaVoto');
+    if (local === 'true') {
+      this.yaVoto = true;
+    }
+    await this.cargarEstado();
   }
 
-  await this.cargarEstado();
-}
   async cargarEstado() {
     const user = await this.authService.getCurrentUser();
     if (!user) return;
@@ -44,16 +46,14 @@ export class UserDashboard implements OnInit {
     this.yaVoto = await this.votosService.yaVoto(this.estudiante.id);
   }
 
-  mostrarAlerta = false;
-
-irAVotar() {
-  if (this.yaVoto) {
-    this.mostrarAlerta = true;
-    setTimeout(() => this.mostrarAlerta = false, 4000); // se oculta solo
-    return;
+  irAVotar() {
+    if (this.yaVoto) {
+      this.mostrarAlerta = true;
+      setTimeout(() => this.mostrarAlerta = false, 4000);
+      return;
+    }
+    this.router.navigate(['/votacion']);
   }
-  this.router.navigate(['/votacion']);
-}
 
   cerrarSesion() {
     localStorage.clear();

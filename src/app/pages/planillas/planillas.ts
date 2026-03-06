@@ -3,12 +3,14 @@ import { PlanillasService } from '../../services/planillas.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { NavbarComponent } from '../../components/navbar.component';
 
 @Component({
   selector: 'app-planillas',
   standalone: true,
-  imports: [FormsModule, CommonModule],
-  templateUrl: './planillas.html'
+  imports: [FormsModule, CommonModule, NavbarComponent],
+  templateUrl: './planillas.html',
+  styleUrls: ['./planillas.css']   
 })
 export class PlanillasComponent implements OnInit {
 

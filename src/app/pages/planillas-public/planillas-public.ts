@@ -4,12 +4,14 @@ import { PlanillasService } from '../../services/planillas.service';
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { RouterModule, Router } from '@angular/router';
+import { NavbarComponent } from '../../components/navbar.component';
 
 @Component({
   selector: 'app-planillas-public',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './planillas-public.html'
+  imports: [CommonModule, NavbarComponent],
+  templateUrl: './planillas-public.html',
+  styleUrls: ['./planillas-public.css']
 })
 export class PlanillasPublicComponent implements OnInit {
 

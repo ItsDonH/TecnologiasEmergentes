@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.components.html',
   styleUrls: ['./login.components.css']
 })
@@ -17,6 +17,7 @@ export class LoginComponent {
   email = '';
   password = '';
   error = '';
+  currentYear = new Date().getFullYear();
 
   constructor(
     private authService: AuthService,
@@ -38,16 +39,17 @@ export class LoginComponent {
         this.error = 'Usuario no autorizado';
         return;
       }
-        
-      //  GUARDAR LA CARRERA DEL USUARIO
+
+      // GUARDAR LA CARRERA DEL USUARIO
       localStorage.setItem('carrera', estudiante['carrera']);
       localStorage.setItem('yaVoto', estudiante['yaVoto']);
-      // redirección por rol
-     if (estudiante['rol'] === 'admin') {
-      this.router.navigate(['/admin']);
+
+      // Redirección por rol
+      if (estudiante['rol'] === 'admin') {
+        this.router.navigate(['/admin']);
       } else {
-  this.router.navigate(['/usuario']);
-        }
+        this.router.navigate(['/usuario']);
+      }
 
     } catch (err) {
       this.error = 'Correo o contraseña incorrectos';

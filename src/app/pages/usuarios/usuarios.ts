@@ -2,11 +2,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { EstudiantesService } from '../../services/estudiantes.service';
+import { NavbarComponent } from '../../components/navbar.component';
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './usuarios.html',
   styleUrls: ['./usuarios.css']
 })
@@ -23,21 +24,27 @@ export class UsuariosComponent implements OnInit {
   async ngOnInit() {
     this.usuarios = await this.estudiantesService.obtenerEstudiantes();
     this.cdr.detectChanges();
-
-    console.log('Usuarios cargados:', this.usuarios);
   }
 
   mostrarVoto(valor: boolean): string {
-    return valor ? 'Sí' : 'No';
+    return valor ? 'Sí votó' : 'Pendiente';
+  }
+
+  votaron(): number {
+    return this.usuarios.filter(u => u.yaVoto).length;
+  }
+
+  noVotaron(): number {
+    return this.usuarios.filter(u => !u.yaVoto).length;
   }
 
   async irAlHome() {
-  await this.router.navigate(['/admin']);
-}
-  cerrarSesion() {
-    localStorage.clear(); 
-    sessionStorage.clear();
+    await this.router.navigate(['/admin']);
+  }
 
+  cerrarSesion() {
+    localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 }

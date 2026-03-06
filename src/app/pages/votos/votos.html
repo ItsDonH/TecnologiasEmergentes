@@ -1,119 +1,131 @@
-<div class="container py-5">
+<div class="page-container">
 
-  <!-- CARGANDO -->
-  <div *ngIf="cargando" class="text-center">
-    <div class="spinner-border text-primary"></div>
-    <p class="mt-3">Cargando votación...</p>
+  <div class="bg-overlay"></div>
+  <div class="particles">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
   </div>
 
-  <!-- ERROR -->
-  <div *ngIf="mensajeError" class="alert alert-danger text-center">
-    {{ mensajeError }}
-  </div>
+  <app-navbar homeRoute="/home"></app-navbar>
 
-  <!-- MENSAJE ÉXITO -->
-  <div *ngIf="mensajeExito" class="alert alert-success text-center">
-    ¡Voto registrado correctamente!
-  </div>
+  <main class="main-content">
 
-  <!-- ENCABEZADO -->
-  <div *ngIf="estudiante && !cargando" class="card shadow mb-4 header-card">
-    <div class="card-body text-center">
-      <h4>Proceso de Votación Estudiantil</h4>
-      <p class="mb-1"><strong>Nombre:</strong> {{ estudiante.nombre }}</p>
-      <p class="mb-1"><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
+    <!-- Cargando -->
+    <div *ngIf="cargando" class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando votación...</p>
     </div>
-  </div>
 
-  <!-- YA VOTÓ -->
-  <div *ngIf="yaVoto" class="alert alert-info text-center">
-    Ya has emitido tu voto. Gracias por participar.
-  </div>
+    <!-- Error -->
+    <div *ngIf="mensajeError" class="alert-banner alert-banner--error">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+      {{ mensajeError }}
+    </div>
 
-  <!--LISTA DE CANDIDATOS --> 
-  <div *ngIf="!yaVoto && !cargando">
+    <!-- Éxito -->
+    <div *ngIf="mensajeExito" class="alert-banner alert-banner--success">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+      ¡Voto registrado correctamente! Redirigiendo...
+    </div>
 
-    <h5 class="mb-3 text-center">Selecciona una planilla</h5>
+    <!-- Encabezado del estudiante -->
+    <div *ngIf="estudiante && !cargando" class="student-card">
+      <div class="student-card__avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+        </svg>
+      </div>
+      <div class="student-card__info">
+        <h3 class="student-card__title">Proceso de Votación Estudiantil</h3>
+        <p class="student-card__detail"><strong>Nombre:</strong> {{ estudiante.nombre }}</p>
+        <p class="student-card__detail"><strong>Carrera:</strong> {{ estudiante.carrera }}</p>
+      </div>
+    </div>
 
-    <div class="row">
+    <!-- Ya votó -->
+    <div *ngIf="yaVoto && !cargando" class="voted-banner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <p class="voted-banner__title">Voto emitido</p>
+        <p class="voted-banner__sub">Ya has participado en esta elección. ¡Gracias!</p>
+      </div>
+    </div>
 
-      <div 
-        class="col-md-4 mb-4"
-        *ngFor="let planilla of planillas"
-      >
-        <div 
-          class="card shadow-sm h-100"
-          (click)="seleccionarPlanilla(planilla)"
-        >
-          <div class="card-body text-center">
-
-            <h5 class="fw-bold">{{ planilla.nombrePlanilla }}</h5>
-
-            <p><strong>Presidente:</strong> {{ planilla.presidente }}</p>
-            <p><strong>Vicepresidente:</strong> {{ planilla.vicepresidente }}</p>
-            <p><strong>Secretario:</strong> {{ planilla.secretario }}</p>
-
-            <p class="text-muted mt-2">
-              {{ planilla.descripcionGeneral }}
-            </p>
-
-            <button class="btn btn-primary btn-sm mt-2">
-              Votar
-            </button>
-
-          </div>
+    <!-- Lista de planillas -->
+    <div *ngIf="!yaVoto && !cargando">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="section-title">Selecciona una planilla</h1>
+          <p class="section-subtitle">Haz clic en la planilla de tu preferencia para votar</p>
         </div>
       </div>
 
+      <div class="planillas-grid">
+        <div
+          class="planilla-card"
+          *ngFor="let planilla of planillas; let i = index"
+          [style.animation-delay]="i * 80 + 'ms'"
+          (click)="seleccionarPlanilla(planilla)"
+        >
+          <div class="planilla-card__top">
+            <span class="partido-name">{{ planilla.nombrePlanilla }}</span>
+          </div>
+          <div class="planilla-card__body">
+            <div class="miembro-row">
+              <span class="miembro-rol">Presidente</span>
+              <span class="miembro-nombre">{{ planilla.presidente }}</span>
+            </div>
+            <div class="miembro-row">
+              <span class="miembro-rol">Vicepresidente</span>
+              <span class="miembro-nombre">{{ planilla.vicepresidente }}</span>
+            </div>
+            <div class="miembro-row">
+              <span class="miembro-rol">Secretario</span>
+              <span class="miembro-nombre">{{ planilla.secretario }}</span>
+            </div>
+          </div>
+          <div class="planilla-card__propuesta" *ngIf="planilla.descripcionGeneral">
+            <p class="propuesta-label">Propuesta</p>
+            <p class="propuesta-text">{{ planilla.descripcionGeneral }}</p>
+          </div>
+          <div class="planilla-card__footer">
+            <span class="vote-cta">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/></svg>
+              Seleccionar
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
 
+  </main>
 
-<div 
-  class="modal-overlay"
-  *ngIf="mostrarConfirmacion"
-  (click)="cancelarVoto()"
->
-  <div 
-    class="modal-card"
-    (click)="$event.stopPropagation()"
-  >
-    <!-- Ícono decorativo -->
-    <div class="modal-icon">
-      🗳️
-    </div>
-
-    <h4 class="modal-title">Confirmar tu voto</h4>
-
-    <p class="modal-subtitle">Estás a punto de votar por:</p>
-
-    <div class="planilla-badge">
-      {{ planillaSeleccionada?.presidente }}
-    </div>
-
-    <p class="modal-warning">
-      ⚠️ Esta acción <strong>no se puede deshacer</strong>.
-    </p>
-
-    <div class="modal-actions">
-      <button 
-        class="btn-cancelar"
-        (click)="cancelarVoto()"
-      >
-        Cancelar
-      </button>
-
-      <button 
-        class="btn-confirmar"
-        (click)="confirmarVoto()"
-        [disabled]="votando"
-      >
-        <span *ngIf="!votando">✔ Confirmar voto</span>
-        <span *ngIf="votando">
-          <span class="spinner-mini"></span> Registrando...
-        </span>
-      </button>
+  <!-- Modal de confirmación -->
+  <div class="modal-overlay" *ngIf="mostrarConfirmacion" (click)="cancelarVoto()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-icon">🗳️</div>
+      <h4 class="modal-title">Confirmar tu voto</h4>
+      <p class="modal-subtitle">Estás a punto de votar por:</p>
+      <div class="planilla-badge">{{ planillaSeleccionada?.presidente }}</div>
+      <p class="modal-warning">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+        Esta acción <strong>no se puede deshacer</strong>.
+      </p>
+      <div class="modal-actions">
+        <button class="btn-cancelar" (click)="cancelarVoto()">Cancelar</button>
+        <button class="btn-confirmar" (click)="confirmarVoto()" [disabled]="votando">
+          <span *ngIf="!votando">✔ Confirmar voto</span>
+          <span *ngIf="votando"><span class="spinner-mini"></span> Registrando...</span>
+        </button>
+      </div>
     </div>
   </div>
-</div>
-</div>
+
 </div>

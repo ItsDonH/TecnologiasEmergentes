@@ -1,0 +1,131 @@
+/* ================================================
+   NAVBAR — Componente reutilizable
+   ProyectoVotaciones
+   ================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --accent:       #e94560;
+  --accent-glow:  rgba(233, 69, 96, 0.35);
+  --glass-bg:     rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.20);
+  --text-light:   rgba(255, 255, 255, 0.92);
+  --text-muted:   rgba(255, 255, 255, 0.52);
+}
+
+.top-nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.6rem 1.5rem;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* --- Brand / Logo --- */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.logo-badge-nav {
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.logo-badge-nav img {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  padding: 4px 10px;
+}
+
+.nav-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* --- Acciones --- */
+.nav-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-nav,
+.btn-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.btn-nav svg,
+.btn-logout svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.btn-nav {
+  background: var(--glass-bg);
+  color: var(--text-light);
+}
+.btn-nav:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
+.btn-logout {
+  background: rgba(233, 69, 96, 0.18);
+  color: #ff8fa3;
+  border-color: rgba(233, 69, 96, 0.40);
+}
+.btn-logout:hover {
+  background: rgba(233, 69, 96, 0.32);
+  color: #fff;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .top-nav {
+    padding: 0.6rem 1rem;
+  }
+
+  .nav-title {
+    font-size: 0.9rem;
+  }
+
+  /* Solo íconos en pantallas pequeñas */
+  .btn-nav span,
+  .btn-logout span {
+    display: none;
+  }
+
+  .btn-nav,
+  .btn-logout {
+    padding: 0.5rem 0.6rem;
+  }
+}

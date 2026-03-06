@@ -1,47 +1,91 @@
-<div class="container py-5">
+<div class="usuarios-container">
 
-  <div class="header">
-     <button class="btn btn-secondary" (click)="irAlHome()">Home</button>
-    <button class="logout-btn ms-2" (click)="cerrarSesion()">
-      Cerrar sesión
-    </button>
+  <!-- Fondo y overlay -->
+  <div class="bg-overlay"></div>
+  <div class="particles">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
   </div>
 
-  <h2 class="text-center mb-4">
-    Gestión de Usuarios
-  </h2>
+  <!-- Navbar superior -->
+  <app-navbar homeRoute="/home"></app-navbar>
 
-  <div class="table-responsive">
-  <table class="table table-bordered table-striped text-center">
-    <thead class="table-dark">
-      <tr>
-        <th>N° Cuenta</th>
-        <th>Correo</th>
-        <th>Carrera</th>
-        <th>Sede</th>
-        <th>¿Ya votó?</th>
-      </tr>
-    </thead>
+  <!-- Contenido principal -->
+  <main class="main-content">
 
-    <tbody>
-      <tr *ngFor="let u of usuarios">
-        <td>{{ u.ncuenta }}</td>
-        <td>{{ u.correo }}</td>
-        <td>{{ u.carrera }}</td>
-        <td>{{ u.sede }}</td>
-        <td>
-          <span
-            class="badge"
-            [ngClass]="u.yaVoto ? 'bg-success' : 'bg-danger'">
-            {{ mostrarVoto(u.yaVoto) }}
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  </div>
-  <div *ngIf="usuarios.length === 0" class="text-center text-muted">
-    No hay usuarios registrados
-  </div>
+    <!-- Header de sección -->
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="section-title">Gestión de Usuarios</h1>
+        <p class="section-subtitle">{{ usuarios.length }} estudiante{{ usuarios.length !== 1 ? 's' : '' }} registrado{{ usuarios.length !== 1 ? 's' : '' }}</p>
+      </div>
+    </div>
 
+    <!-- Stats rápidas -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-number">{{ usuarios.length }}</span>
+        <span class="stat-label">Total</span>
+      </div>
+      <div class="stat-card stat-card--success">
+        <span class="stat-number">{{ votaron() }}</span>
+        <span class="stat-label">Votaron</span>
+      </div>
+      <div class="stat-card stat-card--danger">
+        <span class="stat-number">{{ noVotaron() }}</span>
+        <span class="stat-label">Pendientes</span>
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="table-card">
+      <div class="table-card__header">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+          <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/>
+        </svg>
+        Listado de estudiantes
+      </div>
+
+      <div class="table-responsive-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>N° Cuenta</th>
+              <th>Correo</th>
+              <th>Carrera</th>
+              <th>Sede</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of usuarios; let i = index" class="table-row" [style.animation-delay]="i * 40 + 'ms'">
+              <td><span class="cuenta-badge">{{ u.ncuenta }}</span></td>
+              <td class="correo-cell">{{ u.correo }}</td>
+              <td>{{ u.carrera }}</td>
+              <td>{{ u.sede }}</td>
+              <td>
+                <span class="status-badge" [ngClass]="u.yaVoto ? 'status-badge--yes' : 'status-badge--no'">
+                  <span class="status-dot"></span>
+                  {{ mostrarVoto(u.yaVoto) }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="usuarios.length === 0" class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <p>No hay usuarios registrados aún</p>
+      </div>
+    </div>
+
+  </main>
 </div>

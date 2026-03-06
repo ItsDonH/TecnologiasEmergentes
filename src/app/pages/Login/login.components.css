@@ -1,50 +1,320 @@
+/* ================================================
+   LOGIN — ProyectoVotaciones
+   Tema: Institucional / Elecciones estudiantiles
+   ================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* --- Variables de color --- */
+:root {
+  --primary:     #0d2b6e;
+  --primary-mid: #1a47a8;
+  --accent:      #e94560;
+  --accent-glow: rgba(233, 69, 96, 0.45);
+  --glass-bg:    rgba(255, 255, 255, 0.10);
+  --glass-border:rgba(255, 255, 255, 0.22);
+  --text-light:  rgba(255, 255, 255, 0.90);
+  --text-muted:  rgba(255, 255, 255, 0.55);
+  --input-bg:    rgba(255, 255, 255, 0.08);
+  --input-focus: rgba(255, 255, 255, 0.18);
+}
+
+/* --- Contenedor principal con imagen de fondo --- */
 .login-container {
-  height: 100vh;
+  position: relative;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #f0f2f5;
+  gap: 1.25rem;
+  padding: 2rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+
+  /* Imagen de fondo desde Unsplash (votación / urna) */
+  background-image: url('/assets/ceutec.jpg');
+  background-size: cover;
+  background-position: center top;
+  background-attachment: fixed;
 }
 
+/* --- Overlay oscuro sobre la imagen --- */
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(13, 43, 110, 0.88) 0%,
+    rgba(26, 71, 168, 0.75) 45%,
+    rgba(233, 69, 96, 0.40) 100%
+  );
+  z-index: 0;
+}
+
+/* --- Partículas flotantes decorativas --- */
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particles span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: float 14s infinite ease-in-out;
+}
+.particles span:nth-child(1) { width: 220px; height: 220px; top: -60px;  left: -60px;  background: var(--accent);   animation-delay: 0s; }
+.particles span:nth-child(2) { width: 160px; height: 160px; top: 55%;    right: -40px; background: white;           animation-delay: -4s; }
+.particles span:nth-child(3) { width: 100px; height: 100px; bottom: 10%; left: 15%;    background: var(--primary-mid); animation-delay: -8s; }
+.particles span:nth-child(4) { width: 60px;  height: 60px;  top: 30%;    left: 8%;     background: white;           animation-delay: -2s; }
+.particles span:nth-child(5) { width: 80px;  height: 80px;  bottom: 20%; right: 12%;   background: var(--accent);   animation-delay: -6s; }
+.particles span:nth-child(6) { width: 140px; height: 140px; top: 20%;    right: 5%;    background: var(--primary);  animation-delay: -10s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.05); }
+}
+
+/* --- Header institucional --- */
+.login-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: slideDown 0.7s ease both;
+}
+
+.logo-badge {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 0.75rem;
+  background: var(--accent);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+.logo-badge svg {
+  width: 36px;
+  height: 36px;
+}
+
+.logo-badge img {
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+}
+
+.system-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+/* --- Card glassmorphism --- */
 .login-card {
-  width: 320px;
-  background: white;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-.login-card h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.login-card label {
-  font-size: 14px;
-  display: block;
-  margin-top: 10px;
-}
-
-.login-card input,
-.login-card select {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
+  max-width: 400px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  animation: slideUp 0.7s ease 0.15s both;
+  overflow: hidden;
 }
 
-.login-card button {
+/* Línea de acento superior */
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-mid), var(--accent));
+}
+
+.card-inner {
+  padding: 2rem 2rem 2.25rem;
+}
+
+.card-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.3rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 1.75rem;
+}
+
+/* --- Campos de formulario --- */
+.field-group {
+  margin-bottom: 1.1rem;
+}
+
+.field-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.field-group label svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.field-group input {
   width: 100%;
-  margin-top: 20px;
-  padding: 10px;
-  background: #1976d2;
-  color: white;
+  background: var(--input-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #ffffff;
+  outline: none;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.field-group input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.field-group input:focus {
+  background: var(--input-focus);
+  border-color: rgba(255,255,255,0.45);
+  box-shadow: 0 0 0 3px rgba(26, 71, 168, 0.4);
+}
+
+/* --- Botón de ingreso --- */
+.btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, var(--accent) 0%, #c0392b 100%);
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px var(--accent-glow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 
+.btn-login svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px var(--accent-glow);
+  filter: brightness(1.08);
+}
+
+.btn-login:hover svg {
+  transform: translateX(4px);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+/* --- Mensaje de error --- */
 .error {
-  margin-top: 10px;
-  color: red;
-  font-size: 12px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(233, 69, 96, 0.15);
+  border: 1px solid rgba(233, 69, 96, 0.35);
+  border-radius: 8px;
+  color: #ff8fa3;
+  font-size: 0.85rem;
+  animation: shake 0.4s ease;
+}
+
+.error svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-6px); }
+  75%       { transform: translateX(6px); }
+}
+
+/* --- Pie de página --- */
+.footer-note {
+  position: relative;
+  z-index: 2;
+  font-size: 0.75rem;
+  color: black;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+/* --- Animaciones de entrada --- */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive: móvil --- */
+@media (max-width: 480px) {
+  .card-inner {
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+
+  .logo-badge {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+  }
+
+  .system-title {
+    font-size: 1.3rem;
+  }
 }

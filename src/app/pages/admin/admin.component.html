@@ -1,65 +1,79 @@
-<div class="container-fluid min-vh-100 d-flex flex-column">
+<div class="admin-container">
 
-  
-  <header class="text-center py-5 bg-light border-bottom">
-    <h1 class="display-4 fw-bold">Administrador</h1>
-  </header>
+  <div class="bg-overlay"></div>
+  <div class="particles">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
 
-  
-  <main class="flex-grow-1 container py-5">
-    <div class="row g-4 justify-content-center">
+  <!-- Navbar -->
+  <app-navbar></app-navbar>
 
-      
-      <div class="col-md-4">
-      <button
-       class="btn btn-primary w-100 py-3"
-       routerLink="/admin/planillas">
-      Gestión de Planillas
-      </button>
+  <!-- Contenido -->
+  <main class="main-content">
+
+    <div class="welcome-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
       </div>
+      <h1 class="welcome-title">Panel de Administrador</h1>
+      <p class="welcome-subtitle">Gestiona el sistema de elecciones estudiantiles de CEUTEC</p>
+    </div>
 
-      
-      <div class="col-md-4">
-        <button
-          class="btn btn-secondary w-100 py-3"
-          routerLink="/admin/usuarios">
-          Gestión de Usuarios
-        </button>
-      </div>
-     
-      <div class="col-md-4">
-        <button class="btn btn-info w-100 py-3 text-white"
-         routerLink="/admin/dashboard">
-          Resultados
-        </button>
-      </div>
+    <!-- Tarjetas de navegación -->
+    <div class="admin-grid">
 
-      
-        <div class="text-center mt-4">
-          <button
-            class="btn btn-danger"
-            (click)="cerrarSesion()">
-            Cerrar sesión
-          </button>
+      <a routerLink="/admin/planillas" class="admin-card">
+        <div class="admin-card__icon admin-card__icon--planillas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
         </div>
+        <h3 class="admin-card__title">Gestión de Planillas</h3>
+        <p class="admin-card__desc">Crea, edita y elimina planillas de candidatos por carrera.</p>
+        <span class="admin-card__arrow">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </span>
+      </a>
+
+      <a routerLink="/admin/usuarios" class="admin-card">
+        <div class="admin-card__icon admin-card__icon--usuarios">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3 class="admin-card__title">Gestión de Usuarios</h3>
+        <p class="admin-card__desc">Consulta el listado de estudiantes y su estado de votación.</p>
+        <span class="admin-card__arrow">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </span>
+      </a>
+
+      <a class="admin-card admin-card--disabled">
+        <div class="admin-card__icon admin-card__icon--resultados">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <h3 class="admin-card__title">Resultados</h3>
+        <p class="admin-card__desc">Consulta los resultados y estadísticas de la votación.</p>
+        <span class="coming-badge">Próximamente</span>
+      </a>
+
     </div>
   </main>
 
- 
-  <footer class="bg-dark text-white text-center py-4 mt-auto">
-    <div class="container">
-      <img
-        src="https://portal.unitec.edu/Documentos/2025/CEUTEC/Logos/ORIGINAL_CEUTEC/Original.png"
-        alt="CEUTEC Logo"
-        class="img-fluid mb-3"
-        style="max-height: 80px;"
-      >
-      <p class="mb-0">
-        © 2026 CEUTEC – Elecciones Estudiantiles
-      </p>
-      <small>
-        Todos los derechos reservados
-      </small>
-    </div>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <img
+      src="https://portal.unitec.edu/Documentos/2025/CEUTEC/Logos/ORIGINAL_CEUTEC/Original.png"
+      alt="CEUTEC Logo"
+      class="footer-logo"
+    />
+    <p class="footer-copy">© 2026 CEUTEC – Elecciones Estudiantiles</p>
+    <small class="footer-small">Todos los derechos reservados</small>
   </footer>
+
 </div>
