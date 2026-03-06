@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { VotosService } from '../../services/votos.service';
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/estudiantes.service';
@@ -10,7 +10,7 @@ import { NavbarComponent } from '../../components/navbar.component';
 @Component({
   selector: 'app-votacion',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './votos.html',
   styleUrls: ['./votos.css']
 })

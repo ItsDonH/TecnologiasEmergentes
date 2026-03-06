@@ -20,7 +20,13 @@
     <div class="collapse navbar-collapse" id="navCeutec">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link text-muted fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/usuario">INICIO</a>
+          <a class="nav-link text-muted fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" routerLink="/usuario">INICIO</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link fw-bold border-bottom border-2 border-dark pb-1" style="letter-spacing:0.08em; font-size:0.85rem;" routerLink="/planillas">PLANILLAS</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link text-muted fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" routerLink="/votacion">VOTAR</a>
         </li>
         <li class="nav-item">
   <a class="nav-link fw-medium text-danger" style="letter-spacing:0.08em; font-size:0.85rem; cursor:pointer;" (click)="cerrarSesion()">CERRAR SESIÓN</a>

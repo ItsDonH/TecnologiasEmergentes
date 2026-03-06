@@ -8,7 +8,7 @@ import { RouterModule, Router } from '@angular/router';
 @Component({
   selector: 'app-planillas-public',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './planillas-public.html',
   styleUrls: ['./planillas-public.css']
 })
