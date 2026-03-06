@@ -1,81 +1,123 @@
-<div class="admin-container">
-
-  <div class="bg-overlay"></div>
-  <div class="particles">
-    <span></span><span></span><span></span>
-    <span></span><span></span><span></span>
-  </div>
+<div class="min-vh-100 d-flex flex-column" style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);">
 
   <!-- Navbar -->
-  <app-navbar></app-navbar>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/admin">
+        <img src="/assets/logo.png"
+          alt="Logo CEUTEC" style="height: 36px;" />
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navAdmin">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link fw-bold border-bottom border-2 border-dark pb-1" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin">INICIO</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/planillas">PLANILLAS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/usuarios">USUARIOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/dashboard">RESULTADOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium text-danger" style="letter-spacing:0.08em; font-size:0.85rem; cursor:pointer;" (click)="cerrarSesion()">CERRAR SESIÓN</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <!-- Contenido -->
-  <main class="main-content">
+  <main class="container py-5 flex-grow-1">
 
-    <div class="welcome-header">
-      <div class="section-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+    <!-- Header -->
+    <div class="text-center mb-5">
+      <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center text-white mb-3"
+        style="width:64px;height:64px;">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
         </svg>
       </div>
-      <h1 class="welcome-title">Panel de Administrador</h1>
-      <p class="welcome-subtitle">Gestiona el sistema de elecciones estudiantiles de CEUTEC</p>
+      <h1 class="h2 fw-bold mb-1">Panel de Administrador</h1>
+      <p class="text-muted">Gestiona el sistema de elecciones estudiantiles de CEUTEC</p>
     </div>
 
-    <!-- Tarjetas de navegación -->
-    <div class="admin-grid">
+    <!-- Tarjetas -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
 
-      <a routerLink="/admin/planillas" class="admin-card">
-        <div class="admin-card__icon admin-card__icon--planillas">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-          </svg>
-        </div>
-        <h3 class="admin-card__title">Gestión de Planillas</h3>
-        <p class="admin-card__desc">Crea, edita y elimina planillas de candidatos por carrera.</p>
-        <span class="admin-card__arrow">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-        </span>
-      </a>
+      <!-- Planillas -->
+      <div class="col">
+        <a href="/admin/planillas" class="card h-100 shadow-sm border-0 text-decoration-none text-dark">
+          <div class="card-body d-flex flex-column align-items-start p-4">
+            <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center mb-3"
+              style="width:52px;height:52px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+            </div>
+            <h5 class="fw-bold mb-2">Gestión de Planillas</h5>
+            <p class="text-muted small flex-grow-1">Crea, edita y elimina planillas de candidatos por carrera.</p>
+            <span class="text-primary fw-semibold small">Ver más →</span>
+          </div>
+        </a>
+      </div>
 
-      <a routerLink="/admin/usuarios" class="admin-card">
-        <div class="admin-card__icon admin-card__icon--usuarios">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-          </svg>
-        </div>
-        <h3 class="admin-card__title">Gestión de Usuarios</h3>
-        <p class="admin-card__desc">Consulta el listado de estudiantes y su estado de votación.</p>
-        <span class="admin-card__arrow">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-        </span>
-      </a>
+      <!-- Usuarios -->
+      <div class="col">
+        <a href="/admin/usuarios" class="card h-100 shadow-sm border-0 text-decoration-none text-dark">
+          <div class="card-body d-flex flex-column align-items-start p-4">
+            <div class="rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center mb-3"
+              style="width:52px;height:52px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#198754" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <h5 class="fw-bold mb-2">Gestión de Usuarios</h5>
+            <p class="text-muted small flex-grow-1">Consulta el listado de estudiantes y su estado de votación.</p>
+            <span class="text-success fw-semibold small">Ver más →</span>
+          </div>
+        </a>
+      </div>
 
-       <a routerLink="/admin/dashboard" class="admin-card">
-        <div class="admin-card__icon admin-card__icon--resultados">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-          </svg>
-        </div>
-        <h3 class="admin-card__title">Resultados</h3>
-        <p class="admin-card__desc">Consulta los resultados y estadísticas de la votación.</p>
-        <span class="admin-card__arrow">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
-        </span>
-      </a>
+      <!-- Resultados -->
+      <div class="col">
+        <a href="/admin/dashboard" class="card h-100 shadow-sm border-0 text-decoration-none text-dark">
+          <div class="card-body d-flex flex-column align-items-start p-4">
+            <div class="rounded-circle bg-warning bg-opacity-10 d-flex align-items-center justify-content-center mb-3"
+              style="width:52px;height:52px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffc107" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <h5 class="fw-bold mb-2">Resultados</h5>
+            <p class="text-muted small flex-grow-1">Consulta los resultados y estadísticas de la votación.</p>
+            <span class="text-warning fw-semibold small">Ver más →</span>
+          </div>
+        </a>
+      </div>
 
     </div>
   </main>
 
   <!-- Footer -->
-  <footer class="site-footer">
+  <footer class="bg-white border-top text-center py-4 mt-auto">
     <img
-      src="https://portal.unitec.edu/Documentos/2025/CEUTEC/Logos/ORIGINAL_CEUTEC/Original.png"
+      src="https://upload.wikimedia.org/wikipedia/commons/8/8d/CEUTEC_HONDURAS.png"
       alt="CEUTEC Logo"
-      class="footer-logo"
+      style="height: 32px;"
+      class="mb-2"
     />
-    <p class="footer-copy">© 2026 CEUTEC – Elecciones Estudiantiles</p>
-    <small class="footer-small">Todos los derechos reservados</small>
+    <p class="text-muted small mb-0">© 2026 CEUTEC – Elecciones Estudiantiles</p>
+    <small class="text-muted">Todos los derechos reservados</small>
   </footer>
 
 </div>

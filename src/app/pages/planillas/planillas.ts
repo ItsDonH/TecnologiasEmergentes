@@ -106,4 +106,6 @@ export class PlanillasComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+
+  
 }

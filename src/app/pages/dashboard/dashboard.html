@@ -1,164 +1,206 @@
-<div class="resultados-wrapper">
+<div class="min-vh-100 d-flex flex-column" style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);">
 
-<!-- NAVBAR -->
-
-<nav class="navbar navbar-expand-lg navbar-ceutec">
-  <div class="container">
-
-    <!-- BRAND / LOGO -->
-    <a class="navbar-brand" href="#">
-      <div class="navbar-brand-logo">
-        <img src="/assets/logo.png" alt="Logo sistema" />
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/admin">
+        <img src="/assets/logo.png"
+          alt="Logo CEUTEC" style="height: 36px;" />
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navAdmin">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin">INICIO</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/planillas">PLANILLAS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/usuarios">USUARIOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold border-bottom border-2 border-dark pb-1" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/dashboard">RESULTADOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium text-danger" style="letter-spacing:0.08em; font-size:0.85rem; cursor:pointer;" (click)="cerrarSesion()">CERRAR SESIÓN</a>
+          </li>
+        </ul>
       </div>
-      <div class="navbar-brand-text">
-        <span class="navbar-brand-name">CEUTEC</span>
-        <span class="navbar-brand-sub">Universidad Tecnológica Centroamericana</span>
+    </div>
+  </nav>
+
+  <main class="container py-5 flex-grow-1">
+
+    <!-- Header -->
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white flex-shrink-0"
+        style="width:52px;height:52px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
       </div>
-    </a>
+      <div>
+        <h1 class="h3 fw-bold mb-0">Resultados de Elecciones</h1>
+        <p class="text-muted mb-0">Visualización en tiempo real de los votos emitidos</p>
+      </div>
+    </div>
 
-    <!-- TOGGLER MÓVIL -->
-    <button class="navbar-toggler" type="button"
-            data-bs-toggle="collapse" data-bs-target="#navCeutec"
-            aria-controls="navCeutec" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <!-- Cargando -->
+    <div *ngIf="cargando" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+      <p class="mt-3 text-muted">Cargando resultados...</p>
+    </div>
 
-    <!-- LINKS -->
-    <div class="collapse navbar-collapse" id="navCeutec">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+    <div *ngIf="!cargando">
+
+      <!-- KPIs -->
+      <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+        <div class="col">
+          <div class="card border-0 shadow-sm text-center py-3">
+            <h2 class="fw-bold mb-0">{{ totalVotos }}</h2>
+            <small class="text-muted">Total de votos</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card border-0 shadow-sm text-center py-3">
+            <h2 class="fw-bold mb-0">{{ planillas.length }}</h2>
+            <small class="text-muted">Planillas</small>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card border-0 shadow-sm text-center py-3 border-bottom border-3 border-warning">
+            <h2 class="fw-bold text-warning mb-0">{{ ganador }}</h2>
+            <small class="text-muted">🏆 Partido líder</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+          <div class="row g-3 align-items-end">
+            <div class="col-12 col-md-4">
+              <label class="form-label small fw-semibold text-muted">Carrera</label>
+              <select class="form-select form-select-sm" [(ngModel)]="filtroCarrera" (change)="aplicarFiltros()">
+                <option value="todas">Todas las carreras</option>
+                <option *ngFor="let c of carreras" [value]="c">{{ c }}</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="form-label small fw-semibold text-muted">Sede</label>
+              <select class="form-select form-select-sm" [(ngModel)]="filtroSede" (change)="aplicarFiltros()">
+                <option value="todas">Todas las sedes</option>
+                <option *ngFor="let s of sedes" [value]="s">{{ s }}</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-4">
+              <button class="btn btn-outline-secondary btn-sm w-100"
+                (click)="filtroCarrera='todas'; filtroSede='todas'; aplicarFiltros()">
+                ✕ Limpiar filtros
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mb-4">
         <li class="nav-item">
-          <a class="nav-link" href="#">Inicio</a>
+          <button class="nav-link" [class.active]="tabActivo === 'barras'" (click)="cambiarTab('barras')">
+            Barras
+          </button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Planillas</a>
+          <button class="nav-link" [class.active]="tabActivo === 'dona'" (click)="cambiarTab('dona')">
+            Distribución
+          </button>
         </li>
         <li class="nav-item">
-          <a class="nav-link active-link" href="#">
-            Resultados
-          </a>
+          <button class="nav-link" [class.active]="tabActivo === 'ambos'" (click)="cambiarTab('ambos')">
+            Ambos
+          </button>
         </li>
       </ul>
-    </div>
-  </div>
-</nav>
 
-  <!-- HEADER -->
-  <div class="resultados-header">
-    <h2>Resultados de Elecciones</h2>
-    <p>Visualización en tiempo real de los votos emitidos</p>
-  </div>
-
-  <!-- CARGANDO -->
-  <div *ngIf="cargando" class="loading-state">
-    <div class="spinner"></div>
-    <p>Cargando resultados...</p>
-  </div>
-
-  <div *ngIf="!cargando">
-
-    <!-- KPI CARDS -->
-    <div class="kpi-row">
-      <div class="kpi-card">
-        <span class="kpi-num">{{ totalVotos }}</span>
-        <span class="kpi-label">Total de votos</span>
-      </div>
-      <div class="kpi-card">
-        <span class="kpi-num">{{ planillas.length }}</span>
-        <span class="kpi-label">Planillas</span>
-      </div>
-      <div class="kpi-card highlight">
-        <span class="kpi-num ">{{ ganador }}</span>
-        <span class="kpi-label">🏆 Partido líder</span>
-      </div>
-    </div>
-
-    <!-- FILTROS -->
-    <div class="filtros-card">
-      <div class="filtro-group">
-        <label>Carrera</label>
-        <select [(ngModel)]="filtroCarrera" (change)="aplicarFiltros()">
-          <option value="todas">Todas las carreras</option>
-          <option *ngFor="let c of carreras" [value]="c">{{ c }}</option>
-        </select>
+      <!-- Charts -->
+      <div class="row g-4 mb-4">
+        <div class="col-12" [class.col-md-6]="tabActivo === 'ambos'"
+          *ngIf="tabActivo === 'barras' || tabActivo === 'ambos'">
+          <div class="card border-0 shadow-sm p-4">
+            <h6 class="fw-semibold mb-3">Votos por partido</h6>
+            <canvas id="chartBarras"></canvas>
+          </div>
+        </div>
+        <div class="col-12" [class.col-md-6]="tabActivo === 'ambos'"
+          *ngIf="tabActivo === 'dona' || tabActivo === 'ambos'">
+          <div class="card border-0 shadow-sm p-4">
+            <h6 class="fw-semibold mb-3">Distribución porcentual</h6>
+            <canvas id="chartDona"></canvas>
+          </div>
+        </div>
       </div>
 
-      <div class="filtro-group">
-        <label>Sede</label>
-        <select [(ngModel)]="filtroSede" (change)="aplicarFiltros()">
-          <option value="todas">Todas las sedes</option>
-          <option *ngFor="let s of sedes" [value]="s">{{ s }}</option>
-        </select>
-      </div>
+      <!-- Tabla resumen -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-bottom d-flex align-items-center gap-2 py-3">
+          <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" class="text-muted">
+            <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/>
+          </svg>
+          <span class="fw-semibold small">Detalle por planilla</span>
+          <button class="btn btn-outline-success btn-sm d-flex align-items-center gap-1" (click)="exportarCSV()">
+    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14">
+      <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+    </svg>
+    Exportar CSV
+  </button>
 
-      <button class="btn-reset" (click)="filtroCarrera='todas'; filtroSede='todas'; aplicarFiltros()">
-        ✕ Limpiar filtros
-      </button>
-    </div>
 
-    <!-- TABS -->
-    <div class="tabs-bar">
-      <button 
-        [class.active]="tabActivo === 'barras'"
-        (click)="cambiarTab('barras')"
-      >📊 Barras</button>
-      <button 
-        [class.active]="tabActivo === 'dona'"
-        (click)="cambiarTab('dona')"
-      >🍩 Distribución</button>
-      <button 
-        [class.active]="tabActivo === 'ambos'"
-        (click)="cambiarTab('ambos')"
-      >⊞ Ambos</button>
-    </div>
 
-    <!-- CHARTS -->
-    <div class="charts-area">
-
-      <div class="chart-box" *ngIf="tabActivo === 'barras' || tabActivo === 'ambos'">
-        <h6>Votos por partido</h6>
-        <canvas id="chartBarras"></canvas>
-      </div>
-
-      <div class="chart-box" *ngIf="tabActivo === 'dona' || tabActivo === 'ambos'">
-        <h6>Distribución porcentual</h6>
-        <canvas id="chartDona"></canvas>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="fw-semibold small text-muted">#</th>
+                <th class="fw-semibold small text-muted">Partido</th>
+                <th class="fw-semibold small text-muted">Presidente</th>
+                <th class="fw-semibold small text-muted">Carrera</th>
+                <th class="fw-semibold small text-muted">Sede</th>
+                <th class="fw-semibold small text-muted">Votos</th>
+                <th class="fw-semibold small text-muted">%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let planilla of planillas; let i = index">
+                <td class="small text-muted">{{ i + 1 }}</td>
+                <td>
+                  <span class="d-inline-block rounded-circle me-2"
+                    [style.background]="chartColores[i]"
+                    style="width:10px;height:10px;">
+                  </span>
+                  <span class="badge bg-primary bg-opacity-10 text-primary">{{ planilla.partido }}</span>
+                </td>
+                <td class="small">{{ planilla.presidente }}</td>
+                <td class="small">{{ planilla.carrera }}</td>
+                <td class="small">{{ planilla.sede }}</td>
+                <td><strong>{{ chartData[i] || 0 }}</strong></td>
+                <td>
+                  <span class="badge bg-secondary bg-opacity-10 text-secondary">
+                    {{ totalVotos > 0 ? ((chartData[i] || 0) / totalVotos * 100).toFixed(1) : 0 }}%
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </div>
+  </main>
 
-    <!-- TABLA RESUMEN -->
-    <div class="tabla-resumen">
-      <h6>Detalle por planilla</h6>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Partido</th>
-            <th>Presidente</th>
-            <th>Carrera</th>
-            <th>Sede</th>
-            <th>Votos</th>
-            <th>%</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let planilla of planillas; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>
-              <span class="color-dot" [style.background]="chartColores[i]"></span>
-              {{ planilla.partido }}
-            </td>
-            <td>{{ planilla.presidente }}</td>
-            <td>{{ planilla.carrera }}</td>
-            <td>{{ planilla.sede }}</td>
-            <td><strong>{{ chartData[i] || 0 }}</strong></td>
-            <td>
-              {{ totalVotos > 0 ? ((chartData[i] || 0) / totalVotos * 100).toFixed(1) : 0 }}%
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
 </div>

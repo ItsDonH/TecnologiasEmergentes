@@ -5,12 +5,11 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/estudiantes.service';
 import { VotosService } from '../../services/votos.service';
-import { NavbarComponent } from '../../components/navbar.component';
 
 @Component({
   selector: 'app-user-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './user-dashboard.html',
   styleUrls: ['./user-dashboard.css']
 })

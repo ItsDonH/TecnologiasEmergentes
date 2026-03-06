@@ -10,7 +10,7 @@ import { NavbarComponent } from '../../components/navbar.component';
 @Component({
   selector: 'app-votacion',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule],
   templateUrl: './votos.html',
   styleUrls: ['./votos.css']
 })
@@ -86,6 +86,12 @@ export class VotacionComponent implements OnInit {
   cancelarVoto() {
     this.mostrarConfirmacion = false;
     this.planillaSeleccionada = null;
+  }
+
+  
+  cerrarSesion() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
  async confirmarVoto() {

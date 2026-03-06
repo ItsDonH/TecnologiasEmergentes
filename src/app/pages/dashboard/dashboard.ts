@@ -2,8 +2,9 @@ import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef } from '
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ResultadosService } from '../../services/dashboard.service';
+
 import { Chart, registerables } from 'chart.js';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 Chart.register(...registerables);
 
@@ -44,7 +45,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private resultadosService: ResultadosService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -134,88 +136,133 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   renderBarras() {
-    const canvas = document.getElementById('chartBarras') as HTMLCanvasElement;
-    if (!canvas) return;
-    this.chartBarras?.destroy();
+  const canvas = document.getElementById('chartBarras') as HTMLCanvasElement;
+  if (!canvas) return;
+  this.chartBarras?.destroy();
 
-    this.chartBarras = new Chart(canvas, {
-      type: 'bar',
-      data: {
-        labels: this.chartLabels,
-        datasets: [{
-          label: 'Votos',
-          data: this.chartData,
-          backgroundColor: this.chartColores,
-          borderRadius: 10,
-          borderSkipped: false,
-        }]
+  this.chartBarras = new Chart(canvas, {
+    type: 'bar',
+    data: {
+      labels: this.chartLabels,
+      datasets: [{
+        label: 'Votos',
+        data: this.chartData,
+        backgroundColor: this.chartColores,
+        borderRadius: 8,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 2.5,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1e293b',
+          padding: 10,
+          cornerRadius: 8,
+          callbacks: {
+            label: (ctx) => ` ${ctx.parsed.y} votos`
+          }
+        }
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => ` ${ctx.parsed.y} votos`
-            }
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { stepSize: 1, font: { size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.04)' },
+          border: { display: false }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 11 } },
+          border: { display: false }
+        }
+      }
+    }
+  });
+}
+
+renderDona() {
+  const canvas = document.getElementById('chartDona') as HTMLCanvasElement;
+  if (!canvas) return;
+  this.chartDona?.destroy();
+
+  const total = this.chartData.reduce((a, b) => a + b, 0);
+
+  this.chartDona = new Chart(canvas, {
+    type: 'doughnut',
+    data: {
+      labels: this.chartLabels,
+      datasets: [{
+        data: this.chartData,
+        backgroundColor: this.chartColores,
+        borderWidth: 3,
+        borderColor: '#fff',
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      aspectRatio: 1.8,
+      cutout: '70%',
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            padding: 20,
+            usePointStyle: true,
+            pointStyleWidth: 8,
+            font: { size: 12 }
           }
         },
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: { stepSize: 1 },
-            grid: { color: 'rgba(0,0,0,0.05)' }
-          },
-          x: {
-            grid: { display: false }
-          }
-        }
-      }
-    });
-  }
-
-  renderDona() {
-    const canvas = document.getElementById('chartDona') as HTMLCanvasElement;
-    if (!canvas) return;
-    this.chartDona?.destroy();
-
-    const total = this.chartData.reduce((a, b) => a + b, 0);
-
-    this.chartDona = new Chart(canvas, {
-      type: 'doughnut',
-      data: {
-        labels: this.chartLabels,
-        datasets: [{
-          data: this.chartData,
-          backgroundColor: this.chartColores,
-          borderWidth: 3,
-          borderColor: '#fff',
-          hoverOffset: 10
-        }]
-      },
-      options: {
-        responsive: true,
-        cutout: '65%',
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { padding: 16, usePointStyle: true }
-          },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => {
-                const pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
-                return ` ${ctx.label}: ${ctx.parsed} votos (${pct}%)`;
-              }
+        tooltip: {
+          backgroundColor: '#1e293b',
+          padding: 10,
+          cornerRadius: 8,
+          callbacks: {
+            label: (ctx) => {
+              const pct = total > 0 ? ((ctx.parsed / total) * 100).toFixed(1) : 0;
+              return ` ${ctx.label}: ${ctx.parsed} votos (${pct}%)`;
             }
           }
         }
       }
-    });
-  }
+    }
+  });
+}
 
   get totalVotos(): number {
     return this.chartData.reduce((a, b) => a + b, 0);
+  }
+
+  exportarCSV() {
+  const encabezado = ['#', 'Partido', 'Presidente', 'Carrera', 'Sede', 'Votos', '%'];
+  
+  const filas = this.planillas.map((p, i) => {
+    const votos = this.chartData[i] || 0;
+    const pct = this.totalVotos > 0 ? ((votos / this.totalVotos) * 100).toFixed(1) : '0';
+    return [i + 1, p.partido, p.presidente, p.carrera, p.sede, votos, `${pct}%`];
+  });
+
+  const contenido = [encabezado, ...filas]
+    .map(fila => fila.join(','))
+    .join('\n');
+
+  const blob = new Blob([contenido], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `resultados_elecciones_${new Date().toLocaleDateString('es-HN')}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+    cerrarSesion() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   get ganador(): string {
