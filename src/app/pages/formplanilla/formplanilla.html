@@ -1,0 +1,68 @@
+<div class="container py-5">
+
+  <div class="card shadow-sm">
+    <div class="card-header bg-white">
+      <h4 class="mb-0">
+        {{ editando ? 'Editar Planilla' : 'Nueva Planilla' }}
+      </h4>
+    </div>
+
+    <div class="card-body">
+
+      <select class="form-select mb-3" [(ngModel)]="planilla.carrera">
+        <option value="" disabled selected>Carrera</option>
+        <option value="Ing. Informática">Ing. Informática</option>
+        <option value="Periodismo">Periodismo</option>
+        <option value="Ing. Electrónica">Ing. Electrónica</option>
+        <option value="Diseño Gráfico">Diseño Gráfico</option>
+        <option value="Ing. Gestión Logística">Ing. Gestión Logística</option>
+        <option value="Enfermería">Enfermería</option>
+        <option value="Derecho">Derecho</option>
+      </select>
+
+      <input class="form-control mb-3" placeholder="Partido"
+      [(ngModel)]="planilla.partido">
+
+      <input class="form-control mb-3" placeholder="Lema"
+      [(ngModel)]="planilla.lema">
+
+      <input class="form-control mb-3" placeholder="Presidente"
+      [(ngModel)]="planilla.presidente">
+
+      <input class="form-control mb-3" placeholder="Vicepresidente"
+      [(ngModel)]="planilla.vicepresidente">
+
+      <input class="form-control mb-3" placeholder="Secretario"
+      [(ngModel)]="planilla.secretario">
+
+      <input class="form-control mb-3" placeholder="Tesorero"
+      [(ngModel)]="planilla.tesorero">
+
+      <select class="form-select mb-3" [(ngModel)]="planilla.sede">
+        <option value="" disabled selected>Sede</option>
+        <option value="TGU">TGU</option>
+        <option value="SPS">SPS</option>
+        <option value="LCE">LCE</option>
+      </select>
+
+      <textarea class="form-control mb-3"
+      rows="3"
+      placeholder="Propuesta"
+      [(ngModel)]="planilla.propuesta"></textarea>
+
+      <div class="d-flex gap-2">
+
+        <button class="btn btn-primary w-100" type="button" (click)="guardar()">
+          {{ editando ? 'Actualizar' : 'Crear Planilla' }}
+        </button>
+
+        <button class="btn btn-outline-secondary w-100" type="button" (click)="cancelar()">
+          Cancelar
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

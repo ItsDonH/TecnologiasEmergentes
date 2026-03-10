@@ -8,7 +8,8 @@ import {
   doc,
   updateDoc,
   query,
-  where
+  where,
+  getDoc
 } from 'firebase/firestore';
 
 @Injectable({
@@ -18,22 +19,36 @@ export class PlanillasService {
 
   private ref = collection(db, 'planillas');
 
-  // Crear planilla
   async crearPlanilla(data: any) {
     return await addDoc(this.ref, data);
   }
 
-  // Obtener todas las planillas (ADMIN)
   async obtenerPlanillas() {
     const snapshot = await getDocs(this.ref);
+
     return snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
     }));
   }
 
-  // 🔥 Obtener planillas por carrera (VOTACIÓN)
+  async obtenerPlanilla(id: string) {
+
+    const refDoc = doc(db, 'planillas', id);
+    const snapshot = await getDoc(refDoc);
+
+    if (snapshot.exists()) {
+      return {
+        id: snapshot.id,
+        ...snapshot.data()
+      };
+    }
+
+    return null;
+  }
+
   async obtenerPlanillasPorCarrera(carrera: string) {
+
     const q = query(this.ref, where('carrera', '==', carrera));
     const snapshot = await getDocs(q);
 
@@ -43,15 +58,17 @@ export class PlanillasService {
     }));
   }
 
-  // Eliminar planilla
   async eliminarPlanilla(id: string) {
+
     const refDoc = doc(db, 'planillas', id);
     await deleteDoc(refDoc);
+
   }
 
-  // Actualizar planilla
   async actualizarPlanilla(id: string, data: any) {
+
     const refDoc = doc(db, 'planillas', id);
     await updateDoc(refDoc, data);
+
   }
 }

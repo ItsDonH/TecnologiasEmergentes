@@ -253,6 +253,11 @@
   transform: translateY(0);
 }
 
+.btn-ingresar:hover {
+  background: #000000 !important;
+  transition: background 0.3s ease;
+}
+
 /* --- Mensaje de error --- */
 .error {
   display: flex;
@@ -317,4 +322,5 @@
   .system-title {
     font-size: 1.3rem;
   }
+
 }

@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [FormsModule, CommonModule, NavbarComponent],
   templateUrl: './planillas.html',
-  styleUrls: ['./planillas.css']   
+  styleUrls: ['./planillas.css']
 })
 export class PlanillasComponent implements OnInit {
 
@@ -34,7 +34,7 @@ export class PlanillasComponent implements OnInit {
     private planillasService: PlanillasService,
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
-     private router: Router
+    private router: Router
   ) { }
 
   async ngOnInit() {
@@ -64,6 +64,14 @@ export class PlanillasComponent implements OnInit {
   editar(p: any) {
     this.editandoId = p.id;
     this.nueva = { ...p };
+  }
+
+  irACrear() {
+    this.router.navigate(['/admin/planillas/nueva']);
+  }
+
+  irAEditar(id: string) {
+    this.router.navigate(['/admin/planillas/editar', id]);
   }
 
   async actualizar() {
@@ -100,16 +108,16 @@ export class PlanillasComponent implements OnInit {
     };
   }
 
-    async irAlHome() {
-  await this.router.navigate(['/admin']);
-}
+  async irAlHome() {
+    await this.router.navigate(['/admin']);
+  }
 
   async cerrarSesion() {
-  await this.authService.logout();
-  localStorage.clear();
-  sessionStorage.clear();
-  this.router.navigate(['/login']);
-}
+    await this.authService.logout();
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
 
-  
+
 }

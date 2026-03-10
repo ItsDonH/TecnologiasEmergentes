@@ -3,7 +3,33 @@
   class="min-vh-100 d-flex align-items-center"
   style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);"
 >
-  <div class="container">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top">
+    <div class="container">
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navCeutec">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navCeutec">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link fw-bold border-bottom border-2 border-dark pb-1" style="letter-spacing:0.08em; font-size:0.85rem;" routerLink="/usuario">INICIO</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-muted fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" routerLink="/planillas">PLANILLAS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-muted fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" routerLink="/votacion">VOTAR</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-medium text-danger" style="letter-spacing:0.08em; font-size:0.85rem; cursor:pointer;" (click)="cerrarSesion()">CERRAR SESIÓN</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" style="padding-top: 80px;">
 
     <!-- Logo CEUTEC -->
     <div class="text-center mb-4">
@@ -100,13 +126,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Cerrar sesión -->
-        <div class="text-center mt-4">
-          <button class="btn btn-danger" (click)="cerrarSesion()">
-            Cerrar sesión
-          </button>
         </div>
 
       </div>
