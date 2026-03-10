@@ -28,5 +28,15 @@ export const routes: Routes = [
   { path: 'admin/planillas/editar/:id', component: FormPlanillaComponent, canActivate: [AuthGuard] },
   { path: 'votacion', component: VotacionComponent, canActivate: [AuthGuard] },
 
-  { path: '**', redirectTo: 'login' }
+  {
+    path: '**',
+    redirectTo: () => {
+      const rol = localStorage.getItem('rol');
+
+      if (rol === 'admin') return '/admin';
+      if (rol === 'usuario') return '/usuario';
+
+      return '/login';
+    }
+  }
 ];
