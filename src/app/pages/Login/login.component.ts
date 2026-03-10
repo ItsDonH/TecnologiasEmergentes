@@ -18,6 +18,7 @@ export class LoginComponent {
   password = '';
   error = '';
   currentYear = new Date().getFullYear();
+  cargando = false;
 
   constructor(
     private authService: AuthService,
@@ -55,6 +56,8 @@ export class LoginComponent {
 
     } catch (err) {
       this.error = 'Correo o contraseña incorrectos';
+    } finally {
+      this.cargando = false;
     }
   }
 }

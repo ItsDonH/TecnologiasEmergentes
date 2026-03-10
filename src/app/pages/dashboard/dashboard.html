@@ -1,44 +1,73 @@
 <div class="min-vh-100 d-flex flex-column" style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);">
-
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="/admin">
-        <img src="/assets/logo.png"
-          alt="Logo CEUTEC" style="height: 36px;" />
-      </a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navAdmin">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin">INICIO</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/planillas">PLANILLAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/usuarios">USUARIOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold border-bottom border-2 border-dark pb-1" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/dashboard">RESULTADOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium text-danger" style="letter-spacing:0.08em; font-size:0.85rem; cursor:pointer;" (click)="cerrarSesion()">CERRAR SESIÓN</a>
-          </li>
-        </ul>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom"
+         role="navigation"
+         aria-label="Navegación principal del panel de administrador">
+      <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           href="/admin"
+           aria-label="CEUTEC – Ir al inicio">
+          <img src="/assets/logo.png" alt="Logo CEUTEC"
+               style="height:36px;" height="36" width="auto" />
+        </a>
+
+        <button class="navbar-toggler border-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navAdmin"
+                aria-controls="navAdmin"
+                aria-expanded="false"
+                aria-label="Abrir o cerrar menú de navegación">
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navAdmin">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" role="list">
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin">INICIO</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin/planillas">PLANILLAS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin/usuarios">USUARIOS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-bold" style="letter-spacing:.08em; font-size:.85rem;
+                 border-bottom:2px solid #212529;"
+                 href="/admin/dashboard"
+                 aria-current="page">RESULTADOS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <button class="nav-link fw-medium text-danger"
+                      style="letter-spacing:.08em; font-size:.85rem;"
+                      type="button"
+                      (click)="cerrarSesion()"
+                      aria-label="Cerrar sesión del panel de administrador">
+                CERRAR SESIÓN
+              </button>
+            </li>
+          </ul>
+        </div>
+
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <main class="container py-5 flex-grow-1">
+  <main id="main-content" class="container py-5 flex-grow-1" tabindex="-1">
 
-    <!-- Header -->
+    <!-- Header de página -->
     <div class="d-flex align-items-center gap-3 mb-4">
       <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white flex-shrink-0"
-        style="width:52px;height:52px;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+           style="width:52px;height:52px;"
+           aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8" focusable="false">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
         </svg>
@@ -49,141 +78,255 @@
       </div>
     </div>
 
-    <!-- Cargando -->
-    <div *ngIf="cargando" class="text-center py-5">
-      <div class="spinner-border text-primary" role="status"></div>
+    <!-- Estado de carga -->
+    <div *ngIf="cargando"
+         class="text-center py-5"
+         role="status"
+         aria-live="polite"
+         aria-label="Cargando resultados de elecciones">
+      <div class="spinner-border text-primary" aria-hidden="true"></div>
       <p class="mt-3 text-muted">Cargando resultados...</p>
     </div>
 
     <div *ngIf="!cargando">
 
       <!-- KPIs -->
-      <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
-        <div class="col">
-          <div class="card border-0 shadow-sm text-center py-3">
-            <h2 class="fw-bold mb-0">{{ totalVotos }}</h2>
-            <small class="text-muted">Total de votos</small>
+      <section aria-labelledby="kpi-heading" class="mb-4">
+        <h2 id="kpi-heading" class="visually-hidden">Indicadores clave</h2>
+
+        <div class="row row-cols-1 row-cols-md-3 g-3">
+
+          <div class="col">
+            <div class="card border-0 shadow-sm text-center py-3">
+              <dl class="mb-0">
+                <dt class="small text-muted" id="lbl-total-votos">Total de votos</dt>
+                <dd class="fw-bold h4 mb-0" aria-labelledby="lbl-total-votos">{{ totalVotos }}</dd>
+              </dl>
+            </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card border-0 shadow-sm text-center py-3">
-            <h2 class="fw-bold mb-0">{{ planillas.length }}</h2>
-            <small class="text-muted">Planillas</small>
+
+          <div class="col">
+            <div class="card border-0 shadow-sm text-center py-3">
+              <dl class="mb-0">
+                <dt class="small text-muted" id="lbl-planillas">Planillas</dt>
+                <dd class="fw-bold h4 mb-0" aria-labelledby="lbl-planillas">{{ planillas.length }}</dd>
+              </dl>
+            </div>
           </div>
-        </div>
-        <div class="col">
-          <div class="card border-0 shadow-sm text-center py-3 border-bottom border-3 border-warning">
-            <h2 class="fw-bold text-warning mb-0">{{ ganador }}</h2>
-            <small class="text-muted">🏆 Partido líder</small>
+
+          <div class="col">
+            <div class="card border-0 shadow-sm text-center py-3"
+                 style="border-bottom:3px solid #92400e !important;">
+              <dl class="mb-0">
+                <dt class="small text-muted" id="lbl-ganador">
+                  <span role="img" aria-label="Trofeo">🏆</span> Partido líder
+                </dt>
+                <dd class="fw-bold h4 mb-0" style="color:#92400e;"
+                    aria-labelledby="lbl-ganador">{{ ganador }}</dd>
+              </dl>
+            </div>
           </div>
+
         </div>
-      </div>
+      </section>
 
       <!-- Filtros -->
       <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
-          <div class="row g-3 align-items-end">
-            <div class="col-12 col-md-4">
-              <label class="form-label small fw-semibold text-muted">Carrera</label>
-              <select class="form-select form-select-sm" [(ngModel)]="filtroCarrera" (change)="aplicarFiltros()">
-                <option value="todas">Todas las carreras</option>
-                <option *ngFor="let c of carreras" [value]="c">{{ c }}</option>
-              </select>
+          <fieldset>
+            <legend class="visually-hidden">Filtrar resultados por carrera y sede</legend>
+            <div class="row g-3 align-items-end">
+
+              <div class="col-12 col-md-4">
+                <label for="filtro-carrera"
+                       class="form-label small fw-semibold" style="color:#374151;">
+                  Carrera
+                </label>
+                <select id="filtro-carrera"
+                        class="form-select form-select-sm"
+                        [(ngModel)]="filtroCarrera"
+                        (change)="aplicarFiltros()"
+                        aria-label="Filtrar por carrera">
+                  <option value="todas">Todas las carreras</option>
+                  <option *ngFor="let c of carreras" [value]="c">{{ c }}</option>
+                </select>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <label for="filtro-sede"
+                       class="form-label small fw-semibold" style="color:#374151;">
+                  Sede
+                </label>
+                <select id="filtro-sede"
+                        class="form-select form-select-sm"
+                        [(ngModel)]="filtroSede"
+                        (change)="aplicarFiltros()"
+                        aria-label="Filtrar por sede">
+                  <option value="todas">Todas las sedes</option>
+                  <option *ngFor="let s of sedes" [value]="s">{{ s }}</option>
+                </select>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <button class="btn btn-outline-secondary btn-sm w-100"
+                        type="button"
+                        (click)="filtroCarrera='todas'; filtroSede='todas'; aplicarFiltros()"
+                        aria-label="Limpiar todos los filtros aplicados">
+                  <span aria-hidden="true">✕</span> Limpiar filtros
+                </button>
+              </div>
+
             </div>
-            <div class="col-12 col-md-4">
-              <label class="form-label small fw-semibold text-muted">Sede</label>
-              <select class="form-select form-select-sm" [(ngModel)]="filtroSede" (change)="aplicarFiltros()">
-                <option value="todas">Todas las sedes</option>
-                <option *ngFor="let s of sedes" [value]="s">{{ s }}</option>
-              </select>
-            </div>
-            <div class="col-12 col-md-4">
-              <button class="btn btn-outline-secondary btn-sm w-100"
-                (click)="filtroCarrera='todas'; filtroSede='todas'; aplicarFiltros()">
-                ✕ Limpiar filtros
-              </button>
-            </div>
-          </div>
+          </fieldset>
         </div>
       </div>
 
       <!-- Tabs -->
-      <ul class="nav nav-tabs mb-4">
-        <li class="nav-item">
-          <button class="nav-link" [class.active]="tabActivo === 'barras'" (click)="cambiarTab('barras')">
-            Barras
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" [class.active]="tabActivo === 'dona'" (click)="cambiarTab('dona')">
-            Distribución
-          </button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link" [class.active]="tabActivo === 'ambos'" (click)="cambiarTab('ambos')">
-            Ambos
-          </button>
-        </li>
-      </ul>
+      <div class="mb-4">
+        <ul class="nav nav-tabs"
+            role="tablist"
+            aria-label="Tipo de visualización de resultados">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="tab-barras"
+                    role="tab"
+                    type="button"
+                    [class.active]="tabActivo === 'barras'"
+                    [attr.aria-selected]="tabActivo === 'barras'"
+                    aria-controls="panel-barras"
+                    (click)="cambiarTab('barras')"
+                    (keydown)="onTabKeydown($event, 'barras')">
+              Barras
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="tab-dona"
+                    role="tab"
+                    type="button"
+                    [class.active]="tabActivo === 'dona'"
+                    [attr.aria-selected]="tabActivo === 'dona'"
+                    aria-controls="panel-dona"
+                    (click)="cambiarTab('dona')"
+                    (keydown)="onTabKeydown($event, 'dona')">
+              Distribución
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="tab-ambos"
+                    role="tab"
+                    type="button"
+                    [class.active]="tabActivo === 'ambos'"
+                    [attr.aria-selected]="tabActivo === 'ambos'"
+                    aria-controls="panel-ambos"
+                    (click)="cambiarTab('ambos')"
+                    (keydown)="onTabKeydown($event, 'ambos')">
+              Ambos
+            </button>
+          </li>
+        </ul>
+      </div>
 
       <!-- Charts -->
       <div class="row g-4 mb-4">
-        <div class="col-12" [class.col-md-6]="tabActivo === 'ambos'"
-          *ngIf="tabActivo === 'barras' || tabActivo === 'ambos'">
+
+        <div id="panel-barras"
+             role="tabpanel"
+             aria-labelledby="tab-barras"
+             class="col-12"
+             [class.col-md-6]="tabActivo === 'ambos'"
+             *ngIf="tabActivo === 'barras' || tabActivo === 'ambos'">
           <div class="card border-0 shadow-sm p-4">
-            <h6 class="fw-semibold mb-3">Votos por partido</h6>
-            <canvas id="chartBarras"></canvas>
+            <h2 class="h6 fw-semibold mb-3" id="titulo-barras">Votos por partido</h2>
+            <canvas id="chartBarras"
+                    role="img"
+                    aria-labelledby="titulo-barras"
+                    aria-describedby="desc-barras">
+            </canvas>
+            <p id="desc-barras" class="visually-hidden">
+              Gráfica de barras verticales con el número de votos totales por cada planilla registrada.
+            </p>
           </div>
         </div>
-        <div class="col-12" [class.col-md-6]="tabActivo === 'ambos'"
-          *ngIf="tabActivo === 'dona' || tabActivo === 'ambos'">
+
+        <div id="panel-dona"
+             role="tabpanel"
+             aria-labelledby="tab-dona"
+             class="col-12"
+             [class.col-md-6]="tabActivo === 'ambos'"
+             *ngIf="tabActivo === 'dona' || tabActivo === 'ambos'">
           <div class="card border-0 shadow-sm p-4">
-            <h6 class="fw-semibold mb-3">Distribución porcentual</h6>
-            <canvas id="chartDona"></canvas>
+            <h2 class="h6 fw-semibold mb-3" id="titulo-dona">Distribución porcentual</h2>
+            <canvas id="chartDona"
+                    role="img"
+                    aria-labelledby="titulo-dona"
+                    aria-describedby="desc-dona">
+            </canvas>
+            <p id="desc-dona" class="visually-hidden">
+              Gráfica de dona con los porcentajes de votos recibidos por cada planilla.
+            </p>
           </div>
         </div>
+
       </div>
 
       <!-- Tabla resumen -->
       <div class="card border-0 shadow-sm">
+
         <div class="card-header bg-white border-bottom d-flex align-items-center gap-2 py-3">
-          <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" class="text-muted">
-            <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/>
+          <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15"
+               class="text-muted" aria-hidden="true" focusable="false">
+            <path fill-rule="evenodd"
+              d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
+              clip-rule="evenodd"/>
           </svg>
-          <span class="fw-semibold small">Detalle por planilla</span>
-          <button class="btn btn-outline-success btn-sm d-flex align-items-center gap-1" (click)="exportarCSV()">
-    <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14">
-      <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
-    </svg>
-    Exportar CSV
-  </button>
+          <span class="fw-semibold small" id="tabla-titulo">Detalle por planilla</span>
 
-
-
+          <button class="btn btn-outline-success btn-sm d-flex align-items-center gap-1 ms-auto"
+                  type="button"
+                  (click)="exportarCSV()"
+                  aria-label="Exportar tabla de resultados en formato CSV">
+            <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"
+                 aria-hidden="true" focusable="false">
+              <path fill-rule="evenodd"
+                d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                clip-rule="evenodd"/>
+            </svg>
+            Exportar CSV
+          </button>
         </div>
-        
+
         <div class="table-responsive">
-          <table class="table table-hover align-middle mb-0">
+          <table class="table table-hover align-middle mb-0"
+                 aria-labelledby="tabla-titulo">
+            <caption class="visually-hidden">
+              Detalle de votos por planilla: partido, presidente, carrera, sede, número de votos y porcentaje.
+            </caption>
             <thead class="table-light">
               <tr>
-                <th class="fw-semibold small text-muted">#</th>
-                <th class="fw-semibold small text-muted">Partido</th>
-                <th class="fw-semibold small text-muted">Presidente</th>
-                <th class="fw-semibold small text-muted">Carrera</th>
-                <th class="fw-semibold small text-muted">Sede</th>
-                <th class="fw-semibold small text-muted">Votos</th>
-                <th class="fw-semibold small text-muted">%</th>
+                <th scope="col" class="fw-semibold small text-muted">#</th>
+                <th scope="col" class="fw-semibold small text-muted">Partido</th>
+                <th scope="col" class="fw-semibold small text-muted">Presidente</th>
+                <th scope="col" class="fw-semibold small text-muted">Carrera</th>
+                <th scope="col" class="fw-semibold small text-muted">Sede</th>
+                <th scope="col" class="fw-semibold small text-muted" aria-sort="descending">Votos</th>
+                <th scope="col" class="fw-semibold small text-muted">%</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let planilla of planillas; let i = index">
                 <td class="small text-muted">{{ i + 1 }}</td>
                 <td>
-                  <span class="d-inline-block rounded-circle me-2"
-                    [style.background]="chartColores[i]"
-                    style="width:10px;height:10px;">
+                  <!-- Punto de color decorativo oculto + texto del partido -->
+                  <span class="d-inline-flex align-items-center gap-2">
+                    <span class="d-inline-block rounded-circle"
+                          [style.background]="chartColores[i]"
+                          style="width:10px;height:10px;border:1px solid rgba(0,0,0,.15);"
+                          aria-hidden="true">
+                    </span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary">{{ planilla.partido }}</span>
                   </span>
-                  <span class="badge bg-primary bg-opacity-10 text-primary">{{ planilla.partido }}</span>
                 </td>
                 <td class="small">{{ planilla.presidente }}</td>
                 <td class="small">{{ planilla.carrera }}</td>
@@ -198,8 +341,8 @@
             </tbody>
           </table>
         </div>
-      </div>
 
+      </div>
     </div>
   </main>
 

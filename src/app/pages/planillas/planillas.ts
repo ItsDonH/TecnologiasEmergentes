@@ -6,6 +6,8 @@ import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar.component';
 import { AuthService } from '../../services/auth.service';
 
+declare const bootstrap: any; // Bootstrap JS disponible globalmente
+
 @Component({
   selector: 'app-planillas',
   standalone: true,
@@ -17,6 +19,10 @@ export class PlanillasComponent implements OnInit {
 
   planillas: any[] = [];
   editandoId: string | null = null;
+
+  // ① Estado para el modal de confirmación (reemplaza confirm())
+  planillaAEliminarId: string | null = null;
+  planillaAEliminarNombre = '';
 
   nueva: any = {
     carrera: '',
@@ -47,15 +53,10 @@ export class PlanillasComponent implements OnInit {
   }
 
   async crear() {
-    if (
-      !this.nueva.partido ||
-      !this.nueva.carrera ||
-      !this.nueva.presidente
-    ) {
-      alert('Complete los campos obligatorios');
+    if (!this.nueva.partido || !this.nueva.carrera || !this.nueva.presidente) {
+      // Sin alert() — la validación se maneja en el formulario formplanilla
       return;
     }
-
     await this.planillasService.crearPlanilla(this.nueva);
     this.resetFormulario();
     await this.cargarPlanillas();
@@ -82,9 +83,32 @@ export class PlanillasComponent implements OnInit {
     }
   }
 
-  async eliminar(id: string) {
-    if (confirm('¿Eliminar planilla?')) {
-      await this.planillasService.eliminarPlanilla(id);
+  // ② Abre el modal accesible en lugar de confirm()
+  confirmarEliminar(id: string, nombre: string) {
+    this.planillaAEliminarId = id;
+    this.planillaAEliminarNombre = nombre;
+
+    const modalEl = document.getElementById('modalEliminar');
+    if (modalEl) {
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
+    }
+  }
+
+  // ③ Se llama desde el botón "Sí, eliminar" del modal
+  async ejecutarEliminar() {
+    if (this.planillaAEliminarId) {
+      await this.planillasService.eliminarPlanilla(this.planillaAEliminarId);
+      this.planillaAEliminarId = null;
+      this.planillaAEliminarNombre = '';
+
+      // Cerrar el modal programáticamente
+      const modalEl = document.getElementById('modalEliminar');
+      if (modalEl) {
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal?.hide();
+      }
+
       await this.cargarPlanillas();
     }
   }
@@ -118,6 +142,4 @@ export class PlanillasComponent implements OnInit {
     sessionStorage.clear();
     this.router.navigate(['/login']);
   }
-
-
 }

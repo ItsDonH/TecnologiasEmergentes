@@ -1,51 +1,77 @@
 <div class="min-vh-100 d-flex flex-column" style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);">
-
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="/admin">
-        <img src="/assets/logo.png" alt="Logo CEUTEC" style="height: 36px;" />
-      </a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navAdmin">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin">INICIO</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold border-bottom border-2 border-dark pb-1"
-              style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/planillas">PLANILLAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;"
-              href="/admin/usuarios">USUARIOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;"
-              href="/admin/dashboard">RESULTADOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium text-danger"
-              style="letter-spacing:0.08em; font-size:0.85rem; cursor:pointer;"
-              (click)="cerrarSesion()">CERRAR SESIÓN</a>
-          </li>
-        </ul>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom"
+         role="navigation"
+         aria-label="Navegación principal del panel de administrador">
+      <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           href="/admin"
+           aria-label="CEUTEC – Ir al inicio">
+          <img src="/assets/logo.png" alt="Logo CEUTEC"
+               style="height:36px;" width="auto" height="36" />
+        </a>
+
+        <button class="navbar-toggler border-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navAdmin"
+                aria-controls="navAdmin"
+                aria-expanded="false"
+                aria-label="Abrir o cerrar menú de navegación">
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navAdmin">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" role="list">
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin">INICIO</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-bold" style="letter-spacing:.08em; font-size:.85rem;
+                 border-bottom:2px solid #212529;"
+                 href="/admin/planillas"
+                 aria-current="page">PLANILLAS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin/usuarios">USUARIOS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin/dashboard">RESULTADOS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <!-- Botón real para acción sin URL destino -->
+              <button class="nav-link fw-medium text-danger"
+                      style="letter-spacing:.08em; font-size:.85rem;"
+                      type="button"
+                      (click)="cerrarSesion()"
+                      aria-label="Cerrar sesión del panel de administrador">
+                CERRAR SESIÓN
+              </button>
+            </li>
+          </ul>
+        </div>
+
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <main class="container py-5 flex-grow-1">
+  <main id="main-content" class="container py-5 flex-grow-1" tabindex="-1">
 
-    <!-- Header -->
+    <!-- Header de página -->
     <div class="d-flex align-items-center justify-content-between mb-4">
       <div class="d-flex align-items-center gap-3">
         <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white flex-shrink-0"
-          style="width:52px;height:52px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+             style="width:52px;height:52px;"
+             aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8" focusable="false">
             <path stroke-linecap="round" stroke-linejoin="round"
-              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
           </svg>
         </div>
         <div>
@@ -54,13 +80,15 @@
         </div>
       </div>
 
-      <!-- BOTON NUEVA PLANILLA -->
       <button class="btn btn-primary d-flex align-items-center gap-2"
-        (click)="irACrear()">
-        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+              type="button"
+              (click)="irACrear()"
+              aria-label="Crear nueva planilla">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"
+             aria-hidden="true" focusable="false">
           <path fill-rule="evenodd"
             d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-            clip-rule="evenodd" />
+            clip-rule="evenodd"/>
         </svg>
         Nueva Planilla
       </button>
@@ -68,33 +96,58 @@
 
     <!-- Tabla -->
     <div class="card border-0 shadow-sm">
+
       <div class="card-header bg-white border-bottom d-flex align-items-center gap-2 py-3">
-        <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15" class="text-muted">
+        <svg viewBox="0 0 20 20" fill="currentColor" width="15" height="15"
+             class="text-muted" aria-hidden="true" focusable="false">
           <path fill-rule="evenodd"
             d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
-            clip-rule="evenodd" />
+            clip-rule="evenodd"/>
         </svg>
-        <span class="fw-semibold small">Planillas registradas ({{ planillas.length }})</span>
+        <!-- id para aria-labelledby de la tabla -->
+        <span class="fw-semibold small" id="tabla-titulo">
+          Planillas registradas ({{ planillas.length }})
+        </span>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
+      <!-- Estado vacío -->
+      <div *ngIf="planillas.length === 0"
+           class="text-center py-5 text-muted"
+           role="status"
+           aria-live="polite">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" class="mb-3"
+             aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        <p class="mb-0">No hay planillas registradas aún</p>
+      </div>
+
+      <div class="table-responsive" *ngIf="planillas.length > 0">
+        <table class="table table-hover align-middle mb-0"
+               aria-labelledby="tabla-titulo">
+          <caption class="visually-hidden">
+            Listado de planillas con partido, carrera, integrantes, sede y acciones disponibles.
+          </caption>
           <thead class="table-light">
             <tr>
-              <th class="fw-semibold small text-muted">Partido</th>
-              <th class="fw-semibold small text-muted">Carrera</th>
-              <th class="fw-semibold small text-muted">Presidente</th>
-              <th class="fw-semibold small text-muted">Vicepresidente</th>
-              <th class="fw-semibold small text-muted">Secretario</th>
-              <th class="fw-semibold small text-muted">Tesorero</th>
-              <th class="fw-semibold small text-muted">Sede</th>
-              <th class="fw-semibold small text-muted">Acciones</th>
+              <th scope="col" class="fw-semibold small text-muted">Partido</th>
+              <th scope="col" class="fw-semibold small text-muted">Carrera</th>
+              <th scope="col" class="fw-semibold small text-muted">Presidente</th>
+              <th scope="col" class="fw-semibold small text-muted">Vicepresidente</th>
+              <th scope="col" class="fw-semibold small text-muted">Secretario</th>
+              <th scope="col" class="fw-semibold small text-muted">Tesorero</th>
+              <th scope="col" class="fw-semibold small text-muted">Sede</th>
+              <th scope="col" class="fw-semibold small text-muted">Acciones</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let p of planillas; let i = index">
-              <td><span class="badge bg-primary bg-opacity-10 text-primary">{{ p.partido }}</span></td>
+            <tr *ngFor="let p of planillas">
+              <td>
+                <span class="badge bg-primary bg-opacity-10 text-primary">{{ p.partido }}</span>
+              </td>
               <td class="small">{{ p.carrera }}</td>
               <td class="small">{{ p.presidente }}</td>
               <td class="small">{{ p.vicepresidente }}</td>
@@ -103,26 +156,30 @@
               <td class="small">{{ p.sede }}</td>
 
               <td>
-                <div class="d-flex gap-1">
+                <div class="d-flex gap-1" role="group"
+                     [attr.aria-label]="'Acciones para la planilla ' + p.partido">
 
-                  <!-- EDITAR -->
+                  <!-- Editar -->
                   <button class="btn btn-sm btn-outline-warning"
-                    (click)="irAEditar(p.id)"
-                    title="Editar">
-                    <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13">
-                      <path
-                        d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                          type="button"
+                          (click)="irAEditar(p.id)"
+                          [attr.aria-label]="'Editar planilla ' + p.partido">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"
+                         aria-hidden="true" focusable="false">
+                      <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
                     </svg>
                   </button>
 
-                  <!-- ELIMINAR -->
+                  <!-- Eliminar -->
                   <button class="btn btn-sm btn-outline-danger"
-                    (click)="eliminar(p.id)"
-                    title="Eliminar">
-                    <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13">
+                          type="button"
+                          (click)="confirmarEliminar(p.id, p.partido)"
+                          [attr.aria-label]="'Eliminar planilla ' + p.partido">
+                    <svg viewBox="0 0 20 20" fill="currentColor" width="13" height="13"
+                         aria-hidden="true" focusable="false">
                       <path fill-rule="evenodd"
                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9z"
-                        clip-rule="evenodd" />
+                        clip-rule="evenodd"/>
                     </svg>
                   </button>
 
@@ -133,16 +190,50 @@
         </table>
       </div>
 
-      <div *ngIf="planillas.length === 0" class="text-center py-5 text-muted">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="1.5" class="mb-3">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-        </svg>
-        <p>No hay planillas registradas aún</p>
-      </div>
-
     </div>
+
+    <!-- Modal de confirmación para eliminar (reemplaza confirm()) -->
+    <div class="modal fade"
+         id="modalEliminar"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="modalEliminarTitulo"
+         aria-describedby="modalEliminarDesc"
+         aria-modal="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+          <div class="modal-header border-0 pb-0">
+            <h2 class="modal-title h5 fw-bold" id="modalEliminarTitulo">
+              Eliminar planilla
+            </h2>
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Cerrar diálogo de confirmación"></button>
+          </div>
+          <div class="modal-body pt-2">
+            <p id="modalEliminarDesc" class="mb-0">
+              ¿Estás seguro de que deseas eliminar la planilla
+              <strong>{{ planillaAEliminarNombre }}</strong>?
+              Esta acción no se puede deshacer.
+            </p>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button"
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="button"
+                    class="btn btn-danger"
+                    (click)="ejecutarEliminar()">
+              Sí, eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
 </div>

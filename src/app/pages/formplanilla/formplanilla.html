@@ -1,68 +1,252 @@
-<div class="container py-5">
+<div class="min-vh-100 d-flex flex-column" style="background: linear-gradient(180deg, #f0f4fa, #e2e8f0);">
+ <main class="container py-5 flex-grow-1" id="main-content" tabindex="-1">
+    <div class="card shadow-sm border-0" style="max-width:620px; margin:0 auto;">
 
-  <div class="card shadow-sm">
-    <div class="card-header bg-white">
-      <h4 class="mb-0">
-        {{ editando ? 'Editar Planilla' : 'Nueva Planilla' }}
-      </h4>
-    </div>
-
-    <div class="card-body">
-
-      <select class="form-select mb-3" [(ngModel)]="planilla.carrera">
-        <option value="" disabled selected>Carrera</option>
-        <option value="Ing. Informática">Ing. Informática</option>
-        <option value="Periodismo">Periodismo</option>
-        <option value="Ing. Electrónica">Ing. Electrónica</option>
-        <option value="Diseño Gráfico">Diseño Gráfico</option>
-        <option value="Ing. Gestión Logística">Ing. Gestión Logística</option>
-        <option value="Enfermería">Enfermería</option>
-        <option value="Derecho">Derecho</option>
-      </select>
-
-      <input class="form-control mb-3" placeholder="Partido"
-      [(ngModel)]="planilla.partido">
-
-      <input class="form-control mb-3" placeholder="Lema"
-      [(ngModel)]="planilla.lema">
-
-      <input class="form-control mb-3" placeholder="Presidente"
-      [(ngModel)]="planilla.presidente">
-
-      <input class="form-control mb-3" placeholder="Vicepresidente"
-      [(ngModel)]="planilla.vicepresidente">
-
-      <input class="form-control mb-3" placeholder="Secretario"
-      [(ngModel)]="planilla.secretario">
-
-      <input class="form-control mb-3" placeholder="Tesorero"
-      [(ngModel)]="planilla.tesorero">
-
-      <select class="form-select mb-3" [(ngModel)]="planilla.sede">
-        <option value="" disabled selected>Sede</option>
-        <option value="TGU">TGU</option>
-        <option value="SPS">SPS</option>
-        <option value="LCE">LCE</option>
-      </select>
-
-      <textarea class="form-control mb-3"
-      rows="3"
-      placeholder="Propuesta"
-      [(ngModel)]="planilla.propuesta"></textarea>
-
-      <div class="d-flex gap-2">
-
-        <button class="btn btn-primary w-100" type="button" (click)="guardar()">
-          {{ editando ? 'Actualizar' : 'Crear Planilla' }}
-        </button>
-
-        <button class="btn btn-outline-secondary w-100" type="button" (click)="cancelar()">
-          Cancelar
-        </button>
-
+      <!-- Card header -->
+      <div class="card-header bg-white border-bottom py-3">
+        <h1 class="h5 fw-bold mb-0" id="form-title">
+          {{ editando ? 'Editar Planilla' : 'Nueva Planilla' }}
+        </h1>
       </div>
 
+      <div class="card-body p-4">
+
+        <!-- ① Región live para mensajes de validación/éxito -->
+        <div id="form-status"
+             role="status"
+             aria-live="polite"
+             aria-atomic="true"
+             class="form-status-msg">
+        </div>
+
+        <!-- ② <form> semántico con aria-labelledby -->
+        <form id="form-planilla"
+              aria-labelledby="form-title"
+              aria-describedby="form-instrucciones"
+              (ngSubmit)="guardar()"
+              #formRef="ngForm"
+              novalidate>
+
+          <!-- Instrucción de campos requeridos -->
+          <p id="form-instrucciones" class="small mb-3 text-secondary">
+            Los campos marcados con
+            <span aria-hidden="true" class="text-danger fw-bold">*</span>
+            <span class="visually-hidden">asterisco</span>
+            son obligatorios.
+          </p>
+
+          <!-- ── Grupo: Contexto académico ── -->
+          <fieldset class="field-group mb-4">
+            <legend class="field-group-legend">Contexto académico</legend>
+
+            <!-- Carrera -->
+            <div class="mb-3">
+              <label for="campo-carrera" class="form-label">
+                Carrera <span class="text-danger fw-bold" aria-hidden="true">*</span>
+              </label>
+              <select id="campo-carrera"
+                      name="carrera"
+                      class="form-select"
+                      [class.is-invalid]="formRef.submitted && !planilla.carrera"
+                      [(ngModel)]="planilla.carrera"
+                      required
+                      aria-required="true"
+                      [attr.aria-invalid]="formRef.submitted && !planilla.carrera ? 'true' : null"
+                      aria-describedby="error-carrera">
+                <option value="">Selecciona una carrera</option>
+                <option value="Ing. Informática">Ing. Informática</option>
+                <option value="Periodismo">Periodismo</option>
+                <option value="Ing. Electrónica">Ing. Electrónica</option>
+                <option value="Diseño Gráfico">Diseño Gráfico</option>
+                <option value="Ing. Gestión Logística">Ing. Gestión Logística</option>
+                <option value="Enfermería">Enfermería</option>
+                <option value="Derecho">Derecho</option>
+              </select>
+              <div id="error-carrera"
+                   class="invalid-feedback"
+                   role="alert"
+                   *ngIf="formRef.submitted && !planilla.carrera">
+                Selecciona una carrera.
+              </div>
+            </div>
+
+            <!-- Sede -->
+            <div class="mb-3">
+              <label for="campo-sede" class="form-label">
+                Sede <span class="text-danger fw-bold" aria-hidden="true">*</span>
+              </label>
+              <select id="campo-sede"
+                      name="sede"
+                      class="form-select"
+                      [class.is-invalid]="formRef.submitted && !planilla.sede"
+                      [(ngModel)]="planilla.sede"
+                      required
+                      aria-required="true"
+                      [attr.aria-invalid]="formRef.submitted && !planilla.sede ? 'true' : null"
+                      aria-describedby="error-sede">
+                <option value="">Selecciona una sede</option>
+                <option value="TGU">Tegucigalpa (TGU)</option>
+                <option value="SPS">San Pedro Sula (SPS)</option>
+                <option value="LCE">La Ceiba (LCE)</option>
+              </select>
+              <div id="error-sede"
+                   class="invalid-feedback"
+                   role="alert"
+                   *ngIf="formRef.submitted && !planilla.sede">
+                Selecciona una sede.
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ── Grupo: Identidad del partido ── -->
+          <fieldset class="field-group mb-4">
+            <legend class="field-group-legend">Identidad del partido</legend>
+
+            <!-- Partido -->
+            <div class="mb-3">
+              <label for="campo-partido" class="form-label">
+                Partido <span class="text-danger fw-bold" aria-hidden="true">*</span>
+              </label>
+              <input id="campo-partido"
+                     name="partido"
+                     type="text"
+                     class="form-control"
+                     [class.is-invalid]="formRef.submitted && !planilla.partido"
+                     [(ngModel)]="planilla.partido"
+                     required
+                     aria-required="true"
+                     [attr.aria-invalid]="formRef.submitted && !planilla.partido ? 'true' : null"
+                     aria-describedby="error-partido"
+                     autocomplete="organization"
+                     placeholder="Nombre del partido" />
+              <div id="error-partido"
+                   class="invalid-feedback"
+                   role="alert"
+                   *ngIf="formRef.submitted && !planilla.partido">
+                El nombre del partido es obligatorio.
+              </div>
+            </div>
+
+            <!-- Lema -->
+            <div class="mb-3">
+              <label for="campo-lema" class="form-label">Lema</label>
+              <input id="campo-lema"
+                     name="lema"
+                     type="text"
+                     class="form-control"
+                     [(ngModel)]="planilla.lema"
+                     aria-describedby="hint-lema"
+                     placeholder="Eslogan del partido" />
+              <div id="hint-lema" class="form-text text-secondary" style="font-size:.77rem;">
+                Opcional. Máximo 120 caracteres.
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- ── Grupo: Integrantes ── -->
+          <fieldset class="field-group mb-4">
+            <legend class="field-group-legend">Integrantes de la planilla</legend>
+
+            <!-- Presidente -->
+            <div class="mb-3">
+              <label for="campo-presidente" class="form-label">
+                Presidente / Presidenta <span class="text-danger fw-bold" aria-hidden="true">*</span>
+              </label>
+              <input id="campo-presidente"
+                     name="presidente"
+                     type="text"
+                     class="form-control"
+                     [class.is-invalid]="formRef.submitted && !planilla.presidente"
+                     [(ngModel)]="planilla.presidente"
+                     required
+                     aria-required="true"
+                     [attr.aria-invalid]="formRef.submitted && !planilla.presidente ? 'true' : null"
+                     aria-describedby="error-presidente"
+                     autocomplete="name"
+                     placeholder="Nombre completo" />
+              <div id="error-presidente"
+                   class="invalid-feedback"
+                   role="alert"
+                   *ngIf="formRef.submitted && !planilla.presidente">
+                El nombre del presidente es obligatorio.
+              </div>
+            </div>
+
+            <!-- Vicepresidente -->
+            <div class="mb-3">
+              <label for="campo-vicepresidente" class="form-label">
+                Vicepresidente / Vicepresidenta
+              </label>
+              <input id="campo-vicepresidente"
+                     name="vicepresidente"
+                     type="text"
+                     class="form-control"
+                     [(ngModel)]="planilla.vicepresidente"
+                     autocomplete="name"
+                     placeholder="Nombre completo" />
+            </div>
+
+            <!-- Secretario -->
+            <div class="mb-3">
+              <label for="campo-secretario" class="form-label">
+                Secretario / Secretaria
+              </label>
+              <input id="campo-secretario"
+                     name="secretario"
+                     type="text"
+                     class="form-control"
+                     [(ngModel)]="planilla.secretario"
+                     autocomplete="name"
+                     placeholder="Nombre completo" />
+            </div>
+
+            <!-- Tesorero -->
+            <div class="mb-3">
+              <label for="campo-tesorero" class="form-label">
+                Tesorero / Tesorera
+              </label>
+              <input id="campo-tesorero"
+                     name="tesorero"
+                     type="text"
+                     class="form-control"
+                     [(ngModel)]="planilla.tesorero"
+                     autocomplete="name"
+                     placeholder="Nombre completo" />
+            </div>
+          </fieldset>
+
+          <!-- Propuesta -->
+          <div class="mb-4">
+            <label for="campo-propuesta" class="form-label">Propuesta</label>
+            <textarea id="campo-propuesta"
+                      name="propuesta"
+                      class="form-control"
+                      rows="3"
+                      [(ngModel)]="planilla.propuesta"
+                      aria-describedby="hint-propuesta"
+                      placeholder="Describe la propuesta de la planilla"></textarea>
+            <div id="hint-propuesta" class="form-text text-secondary" style="font-size:.77rem;">
+              Describe brevemente el plan de trabajo del partido.
+            </div>
+          </div>
+
+          <!-- ③ Botones: submit real + button type="button" para cancelar -->
+          <div class="d-flex gap-2">
+            <button type="submit"
+                    class="btn btn-primary w-100">
+              {{ editando ? 'Actualizar Planilla' : 'Crear Planilla' }}
+            </button>
+            <button type="button"
+                    class="btn btn-outline-secondary w-100"
+                    (click)="cancelar()"
+                    aria-label="Cancelar y descartar cambios del formulario">
+              Cancelar
+            </button>
+          </div>
+
+        </form>
+      </div>
     </div>
-  </div>
+  </main>
 
 </div>

@@ -1,48 +1,78 @@
 <div class="min-vh-100 d-flex flex-column" style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);">
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="/home">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/CEUTEC_HONDURAS.png"
-          alt="Logo CEUTEC" style="height: 36px;" />
-        <div class="d-flex flex-column lh-sm">
-          <span class="fw-bold" style="font-size:1.1rem; letter-spacing:0.05em;">CEUTEC</span>
-          <span class="text-muted" style="font-size:0.6rem; letter-spacing:0.12em;">CENTRO UNIVERSITARIO TECNOLÓGICO</span>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom"
+         role="navigation"
+         aria-label="Navegación principal del panel de administrador">
+      <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center gap-2"
+           href="/home"
+           aria-label="CEUTEC – Centro Universitario Tecnológico, ir al inicio">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/CEUTEC_HONDURAS.png"
+               alt="Logo CEUTEC" style="height:36px;" height="36" width="auto" />
+          <div class="d-flex flex-column lh-sm" aria-hidden="true">
+            <span class="fw-bold" style="font-size:1.1rem; letter-spacing:.05em;">CEUTEC</span>
+            <span class="text-muted" style="font-size:.6rem; letter-spacing:.12em;">CENTRO UNIVERSITARIO TECNOLÓGICO</span>
+          </div>
+        </a>
+
+        <button class="navbar-toggler border-0"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navAdmin"
+                aria-controls="navAdmin"
+                aria-expanded="false"
+                aria-label="Abrir o cerrar menú de navegación">
+          <span class="navbar-toggler-icon" aria-hidden="true"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navAdmin">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0" role="list">
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin">INICIO</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin/planillas">PLANILLAS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-bold" style="letter-spacing:.08em; font-size:.85rem;
+                 border-bottom:2px solid #212529;"
+                 href="/admin/usuarios"
+                 aria-current="page">USUARIOS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
+                 href="/admin/dashboard">RESULTADOS</a>
+            </li>
+            <li class="nav-item" role="listitem">
+              <button class="nav-link fw-medium text-danger"
+                      style="letter-spacing:.08em; font-size:.85rem;"
+                      type="button"
+                      (click)="cerrarSesion()"
+                      aria-label="Cerrar sesión del panel de administrador">
+                CERRAR SESIÓN
+              </button>
+            </li>
+          </ul>
         </div>
-      </a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navAdmin">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navAdmin">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin">INICIO</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/planillas">PLANILLAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-bold border-bottom border-2 border-dark pb-1" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/usuarios">USUARIOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium" style="letter-spacing:0.08em; font-size:0.85rem;" href="/admin/dashboard">RESULTADOS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link fw-medium text-danger" style="letter-spacing:0.08em; font-size:0.85rem; cursor:pointer;" (click)="cerrarSesion()">CERRAR SESIÓN</a>
-          </li>
-        </ul>
+
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <main class="container py-5 flex-grow-1">
+  <main id="main-content" class="container py-5 flex-grow-1" tabindex="-1">
 
-    <!-- Header -->
+    <!-- Header de página -->
     <div class="d-flex align-items-center gap-3 mb-4">
       <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white flex-shrink-0"
-        style="width:52px;height:52px;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+           style="width:52px;height:52px;"
+           aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.8" focusable="false">
           <path stroke-linecap="round" stroke-linejoin="round"
             d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
@@ -50,77 +80,117 @@
       <div>
         <h1 class="h3 fw-bold mb-0">Gestión de Usuarios</h1>
         <p class="text-muted mb-0">
-          {{ usuarios.length }} estudiante{{ usuarios.length !== 1 ? 's' : '' }} registrado{{ usuarios.length !== 1 ? 's' : '' }}
+          {{ usuarios.length }} estudiante{{ usuarios.length !== 1 ? 's' : '' }}
+          registrado{{ usuarios.length !== 1 ? 's' : '' }}
         </p>
       </div>
     </div>
 
     <!-- Stats -->
-    <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
-      <div class="col">
-        <div class="card border-0 shadow-sm text-center py-3">
-          <h2 class="fw-bold mb-0">{{ usuarios.length }}</h2>
-          <small class="text-muted">Total</small>
+    <section aria-labelledby="stats-heading" class="mb-4">
+      <h2 id="stats-heading" class="visually-hidden">Resumen de participación</h2>
+
+      <div class="row row-cols-1 row-cols-md-3 g-3">
+
+        <div class="col">
+          <div class="card border-0 shadow-sm text-center py-3">
+            <dl class="mb-0">
+              <dt class="small text-muted" id="lbl-total">Total</dt>
+              <dd class="fw-bold h4 mb-0" aria-labelledby="lbl-total">{{ usuarios.length }}</dd>
+            </dl>
+          </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="card border-0 shadow-sm text-center py-3 border-bottom border-3 border-success">
-          <h2 class="fw-bold text-success mb-0">{{ votaron() }}</h2>
-          <small class="text-muted">Votaron</small>
+
+        <div class="col">
+          <div class="card border-0 shadow-sm text-center py-3"
+               style="border-bottom:3px solid #15803d !important;">
+            <dl class="mb-0">
+              <dt class="small text-muted" id="lbl-votaron">Votaron</dt>
+              <!-- color corregido: #15803d contraste 6.0:1 -->
+              <dd class="fw-bold h4 mb-0" style="color:#15803d;"
+                  aria-labelledby="lbl-votaron">{{ votaron() }}</dd>
+            </dl>
+          </div>
         </div>
-      </div>
-      <div class="col">
-        <div class="card border-0 shadow-sm text-center py-3 border-bottom border-3 border-warning">
-          <h2 class="fw-bold text-warning mb-0">{{ noVotaron() }}</h2>
-          <small class="text-muted">Pendientes</small>
+
+        <div class="col">
+          <div class="card border-0 shadow-sm text-center py-3"
+               style="border-bottom:3px solid #92400e !important;">
+            <dl class="mb-0">
+              <dt class="small text-muted" id="lbl-pendientes">Pendientes</dt>
+              <!-- color corregido: #92400e contraste 5.8:1 -->
+              <dd class="fw-bold h4 mb-0" style="color:#92400e;"
+                  aria-labelledby="lbl-pendientes">{{ noVotaron() }}</dd>
+            </dl>
+          </div>
         </div>
+
       </div>
-    </div>
+    </section>
 
     <!-- Tabla -->
     <div class="card border-0 shadow-sm">
+
       <div class="card-header bg-white border-bottom d-flex align-items-center gap-2 py-3">
-        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16" class="text-muted">
-          <path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"/>
+        <svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"
+             class="text-muted" aria-hidden="true" focusable="false">
+          <path fill-rule="evenodd"
+            d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z"
+            clip-rule="evenodd"/>
         </svg>
-        <span class="fw-semibold">Listado de estudiantes</span>
+        <span class="fw-semibold" id="tabla-titulo">Listado de estudiantes</span>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
+      <!-- Estado vacío -->
+      <div *ngIf="usuarios.length === 0"
+           class="text-center py-5 text-muted"
+           role="status" aria-live="polite">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" class="mb-3"
+             aria-hidden="true" focusable="false">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <p class="mb-0">No hay usuarios registrados aún</p>
+      </div>
+
+      <div class="table-responsive" *ngIf="usuarios.length > 0">
+        <table class="table table-hover align-middle mb-0"
+               aria-labelledby="tabla-titulo">
+          <caption class="visually-hidden">
+            Listado de estudiantes con número de cuenta, correo, carrera, sede y estado de votación.
+          </caption>
           <thead class="table-light">
             <tr>
-              <th class="fw-semibold small text-muted">N° Cuenta</th>
-              <th class="fw-semibold small text-muted">Correo</th>
-              <th class="fw-semibold small text-muted">Carrera</th>
-              <th class="fw-semibold small text-muted">Sede</th>
-              <th class="fw-semibold small text-muted">Estado</th>
+              <th scope="col" class="fw-semibold small text-muted">N° Cuenta</th>
+              <th scope="col" class="fw-semibold small text-muted">Correo</th>
+              <th scope="col" class="fw-semibold small text-muted">Carrera</th>
+              <th scope="col" class="fw-semibold small text-muted">Sede</th>
+              <th scope="col" class="fw-semibold small text-muted">Estado</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let u of usuarios; let i = index">
-              <td><span class="badge bg-light text-dark border">{{ u.ncuenta }}</span></td>
+            <tr *ngFor="let u of usuarios">
+              <td>
+                <span class="badge bg-light border" style="color:#374151;">{{ u.ncuenta }}</span>
+              </td>
               <td class="small">{{ u.correo }}</td>
               <td class="small">{{ u.carrera }}</td>
               <td class="small">{{ u.sede }}</td>
               <td>
+                <!-- Badge con color + texto (no solo color para comunicar estado) -->
                 <span class="badge rounded-pill"
-                  [ngClass]="u.yaVoto ? 'bg-success' : 'bg-warning text-dark'">
+                      [ngClass]="u.yaVoto ? 'bg-success' : 'bg-warning text-dark'">
                   {{ mostrarVoto(u.yaVoto) }}
+                </span>
+                <!-- Descripción oculta para lectores de pantalla -->
+                <span class="visually-hidden">
+                  {{ u.yaVoto ? 'Este estudiante ya emitió su voto.' : 'Este estudiante aún no ha votado.' }}
                 </span>
               </td>
             </tr>
           </tbody>
         </table>
-      </div>
-
-      <!-- Vacío -->
-      <div *ngIf="usuarios.length === 0" class="text-center py-5 text-muted">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mb-3">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
-        <p>No hay usuarios registrados aún</p>
       </div>
 
     </div>
