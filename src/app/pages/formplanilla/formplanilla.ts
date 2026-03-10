@@ -45,9 +45,14 @@ export class FormPlanillaComponent implements OnInit {
 
         const planilla = await this.planillasService.obtenerPlanilla(this.id);
 
-        if (planilla) {
-          this.planilla = { ...planilla };
+      
+        if (!planilla) {
+          alert("La planilla no existe");
+          this.router.navigate(['/admin']);
+          return;
         }
+
+        this.planilla = { ...planilla };
 
       }
 
