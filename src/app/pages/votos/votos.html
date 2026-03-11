@@ -1,115 +1,82 @@
 <div class="min-vh-100" style="background: linear-gradient(180deg, #f5f7fa, #e9ecef);">
   <!-- Navbar -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm"
-         role="navigation"
-         aria-label="Navegación principal">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" role="navigation"
+      aria-label="Navegación principal">
       <div class="container">
-
         <a class="navbar-brand" routerLink="/usuario" aria-label="CEUTEC – Ir al inicio">
-          <img src="/assets/logo.png" alt="Logo CEUTEC"
-               style="height:36px;" height="36" width="auto" />
+          <img src="/assets/logo.png" alt="Logo CEUTEC" style="height:36px;" height="36" width="auto" />
         </a>
-
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navCeutec"
-                aria-controls="navCeutec"
-                aria-expanded="false"
-                aria-label="Abrir o cerrar menú de navegación">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCeutec"
+          aria-controls="navCeutec" aria-expanded="false" aria-label="Abrir o cerrar menú de navegación">
           <span class="navbar-toggler-icon" aria-hidden="true"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navCeutec">
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0" role="list">
             <li class="nav-item" role="listitem">
               <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem;"
-                 routerLink="/usuario">INICIO</a>
+                routerLink="/usuario">INICIO</a>
             </li>
             <li class="nav-item" role="listitem">
-              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem"
-                 routerLink="/planillas"
-                 aria-current="page">PLANILLAS</a>
+              <a class="nav-link fw-medium" style="letter-spacing:.08em; font-size:.85rem" routerLink="/planillas"
+                aria-current="page">PLANILLAS</a>
             </li>
             <li class="nav-item" role="listitem">
-              <a class="nav-link fw-bold" style="letter-spacing:.08em; font-size:.85rem; border-bottom:2px solid #212529;"
-                 routerLink="/votacion">VOTAR</a>
+              <a class="nav-link fw-bold"
+                style="letter-spacing:.08em; font-size:.85rem; border-bottom:2px solid #212529;"
+                routerLink="/votacion">VOTAR</a>
             </li>
             <li class="nav-item" role="listitem">
-              <button class="nav-link fw-medium text-danger"
-                      style="letter-spacing:.08em; font-size:.85rem;"
-                      type="button"
-                      (click)="cerrarSesion()"
-                      aria-label="Cerrar sesión">
+              <button class="nav-link fw-medium text-danger" style="letter-spacing:.08em; font-size:.85rem;"
+                type="button" (click)="cerrarSesion()" aria-label="Cerrar sesión">
                 CERRAR SESIÓN
               </button>
             </li>
           </ul>
         </div>
-
       </div>
     </nav>
   </header>
-
   <main id="main-content" class="container py-5" tabindex="-1">
-
     <!-- Estado de carga -->
-    <div *ngIf="cargando"
-         class="text-center py-5"
-         role="status"
-         aria-live="polite"
-         aria-label="Cargando votación">
+    <div *ngIf="cargando" class="text-center py-5" role="status" aria-live="polite" aria-label="Cargando votación">
       <div class="spinner-border text-primary" aria-hidden="true"></div>
       <p class="mt-3 text-muted">Cargando votación...</p>
     </div>
-
-    <!-- Mensajes de estado: aria-live para anuncio automático -->
+    <!-- Mensajes de estado -->
     <div aria-live="assertive" aria-atomic="true">
-
       <!-- Error -->
-      <div *ngIf="mensajeError"
-           class="alert alert-danger d-flex align-items-center gap-2"
-           role="alert">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"
-             aria-hidden="true" focusable="false">
+      <div *ngIf="mensajeError" class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false">
           <path fill-rule="evenodd"
             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-            clip-rule="evenodd"/>
+            clip-rule="evenodd" />
         </svg>
         <span>{{ mensajeError }}</span>
       </div>
-
       <!-- Éxito -->
-      <div *ngIf="mensajeExito"
-           class="alert alert-success d-flex align-items-center gap-2"
-           role="alert">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"
-             aria-hidden="true" focusable="false">
+      <div *ngIf="mensajeExito" class="alert alert-success d-flex align-items-center gap-2" role="alert">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false">
           <path fill-rule="evenodd"
             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-            clip-rule="evenodd"/>
+            clip-rule="evenodd" />
         </svg>
         <span>¡Voto registrado correctamente! Redirigiendo...</span>
       </div>
-
     </div>
-
     <!-- Encabezado del estudiante -->
     <div *ngIf="estudiante && !cargando" class="card shadow-sm border-0 mb-4">
       <div class="card-body d-flex align-items-center gap-3">
         <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white flex-shrink-0"
-             style="width:56px;height:56px;"
-             aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.5" focusable="false">
+          style="width:56px;height:56px;" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            focusable="false">
             <path stroke-linecap="round" stroke-linejoin="round"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
         </div>
         <div>
           <h1 class="h5 fw-bold mb-1">Proceso de Votación Estudiantil</h1>
-          <!-- dl semántico para pares dato/etiqueta -->
           <dl class="mb-0">
             <div class="d-flex gap-1">
               <dt class="text-muted small fw-normal">Correo:</dt>
@@ -123,34 +90,26 @@
         </div>
       </div>
     </div>
-
     <!-- Ya votó -->
-    <div *ngIf="yaVoto && !cargando"
-         class="alert alert-success d-flex align-items-center gap-3 p-4"
-         role="status">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2" class="flex-shrink-0"
-           aria-hidden="true" focusable="false">
-        <path stroke-linecap="round" stroke-linejoin="round"
-          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+    <div *ngIf="yaVoto && !cargando" class="alert alert-success d-flex align-items-center gap-3 p-4" role="status">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        class="flex-shrink-0" aria-hidden="true" focusable="false">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
       <div>
         <p class="fw-bold mb-0">Voto emitido</p>
         <p class="mb-0 small">Ya has participado en esta elección. ¡Gracias!</p>
       </div>
     </div>
-
     <!-- Lista de planillas -->
     <div *ngIf="!yaVoto && !cargando">
-
       <div class="d-flex align-items-center gap-3 mb-4">
         <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-white flex-shrink-0"
-             style="width:52px;height:52px;"
-             aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.8" focusable="false">
+          style="width:52px;height:52px;" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+            focusable="false">
             <path stroke-linecap="round" stroke-linejoin="round"
-              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
           </svg>
         </div>
         <div>
@@ -158,81 +117,42 @@
           <p class="text-muted mb-0">Elige la planilla de tu preferencia para votar</p>
         </div>
       </div>
-
       <!-- Cards de planillas -->
       <section aria-labelledby="planillas-voto-heading">
         <h3 id="planillas-voto-heading" class="visually-hidden">Planillas disponibles para votar</h3>
-
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           <div class="col" *ngFor="let planilla of planillas">
-
-            <!-- ① Botón real en lugar de div clickeable -->
-            <button class="card h-100 shadow-sm border-0 w-100 text-start p-0"
-                    type="button"
-                    style="cursor:pointer;"
-                    (click)="seleccionarPlanilla(planilla)"
-                    [attr.aria-label]="'Votar por ' + planilla.partido">
-
+            <button class="card h-100 shadow-sm border-0 w-100 text-start p-0" type="button" style="cursor:pointer;"
+              (click)="seleccionarPlanilla(planilla)" [attr.aria-label]="'Votar por ' + planilla.partido">
+              <!-- Header: partido + lema -->
               <div class="card-header bg-primary text-white text-center py-3 w-100">
                 <h4 class="h5 fw-bold mb-0">{{ planilla.partido }}</h4>
+                <p class="mb-0 small fst-italic mt-1" style="opacity:.85;">{{ planilla.lema }}</p>
               </div>
-
-              <div class="card-body w-100">
-                <dl class="mb-0">
-                  <div class="d-flex justify-content-between py-2 border-bottom">
-                    <dt class="text-muted small fw-normal">Presidente</dt>
-                    <dd class="fw-semibold small text-end mb-0">{{ planilla.presidente }}</dd>
-                  </div>
-                  <div class="d-flex justify-content-between py-2 border-bottom">
-                    <dt class="text-muted small fw-normal">Vicepresidente</dt>
-                    <dd class="fw-semibold small text-end mb-0">{{ planilla.vicepresidente }}</dd>
-                  </div>
-                  <div class="d-flex justify-content-between py-2">
-                    <dt class="text-muted small fw-normal">Secretario</dt>
-                    <dd class="fw-semibold small text-end mb-0">{{ planilla.secretario }}</dd>
-                  </div>
-                </dl>
-              </div>
-
-              <div class="card-footer bg-light border-0 py-3 w-100" *ngIf="planilla.descripcionGeneral">
+              <!-- Propuesta -->
+              <div class="card-body py-3 px-4 w-100" *ngIf="planilla.propuesta">
                 <p class="text-muted small fw-semibold mb-1">Propuesta</p>
-                <p class="small mb-0">{{ planilla.descripcionGeneral }}</p>
+                <p class="small mb-0">{{ planilla.propuesta }}</p>
               </div>
-
-              <div class="card-footer bg-white border-top text-center py-3 w-100">
+              <!-- Footer seleccionar -->
+              <div class="card-footer bg-white border-top text-center py-3 w-100 mt-auto">
                 <span class="text-primary fw-semibold small" aria-hidden="true">→ Seleccionar</span>
               </div>
-
             </button>
-
           </div>
         </div>
       </section>
     </div>
-
   </main>
-
-  <!-- ② Modal accesible con role="dialog", aria-modal, aria-labelledby, aria-describedby -->
-  <div *ngIf="mostrarConfirmacion"
-       class="modal fade show d-block"
-       role="dialog"
-       aria-modal="true"
-       aria-labelledby="modal-titulo"
-       aria-describedby="modal-desc"
-       tabindex="-1"
-       style="background:rgba(0,0,0,0.5);"
-       (click)="cancelarVoto()"
-       (keydown.escape)="cancelarVoto()">
-
-    <div class="modal-dialog modal-dialog-centered"
-         (click)="$event.stopPropagation()">
+  <!-- Modal de confirmación -->
+  <div *ngIf="mostrarConfirmacion" class="modal fade show d-block" role="dialog" aria-modal="true"
+    aria-labelledby="modal-titulo" aria-describedby="modal-desc" tabindex="-1" style="background:rgba(0,0,0,0.5);"
+    (click)="cancelarVoto()" (keydown.escape)="cancelarVoto()">
+    <div class="modal-dialog modal-dialog-centered" (click)="$event.stopPropagation()">
       <div class="modal-content border-0 shadow-lg">
-
         <div class="modal-header border-0 justify-content-center pt-4">
-          <!-- Emoji con descripción para AT -->
           <span role="img" aria-label="Urna de votación" style="font-size:2.5rem;">🗳️</span>
         </div>
-
         <div class="modal-body text-center px-4">
           <h2 class="h4 fw-bold mb-2" id="modal-titulo">Confirmar tu voto</h2>
           <p class="text-muted mb-3" id="modal-desc">Estás a punto de votar por:</p>
@@ -240,38 +160,29 @@
             {{ planillaSeleccionada?.partido }}
           </p>
           <div class="alert alert-warning d-flex align-items-center justify-content-center gap-2">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor"
-                 class="flex-shrink-0" aria-hidden="true" focusable="false">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="flex-shrink-0" aria-hidden="true"
+              focusable="false">
               <path fill-rule="evenodd"
                 d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                clip-rule="evenodd"/>
+                clip-rule="evenodd" />
             </svg>
             Esta acción <strong>&nbsp;no se puede deshacer</strong>.
           </div>
         </div>
-
         <div class="modal-footer border-0 justify-content-center gap-2 pb-4">
-          <button class="btn btn-outline-secondary px-4"
-                  type="button"
-                  (click)="cancelarVoto()">
+          <button class="btn btn-outline-secondary px-4" type="button" (click)="cancelarVoto()">
             Cancelar
           </button>
-          <button class="btn btn-primary px-4"
-                  type="button"
-                  (click)="confirmarVoto()"
-                  [disabled]="votando"
-                  [attr.aria-busy]="votando ? 'true' : null">
+          <button class="btn btn-primary px-4" type="button" (click)="confirmarVoto()" [disabled]="votando"
+            [attr.aria-busy]="votando ? 'true' : null">
             <span *ngIf="!votando">Confirmar voto</span>
             <span *ngIf="votando">
-              <span class="spinner-border spinner-border-sm me-1"
-                    role="status" aria-hidden="true"></span>
+              <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
               Registrando...
             </span>
           </button>
         </div>
-
       </div>
     </div>
   </div>
-
 </div>
