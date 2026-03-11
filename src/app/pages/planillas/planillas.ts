@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar.component';
 import { AuthService } from '../../services/auth.service';
-
-declare const bootstrap: any; // Bootstrap JS disponible globalmente
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-planillas',
@@ -16,13 +15,15 @@ declare const bootstrap: any; // Bootstrap JS disponible globalmente
   styleUrls: ['./planillas.css']
 })
 export class PlanillasComponent implements OnInit {
-
   planillas: any[] = [];
   editandoId: string | null = null;
 
-  // ① Estado para el modal de confirmación (reemplaza confirm())
+  // Estado para el modal de confirmación
   planillaAEliminarId: string | null = null;
   planillaAEliminarNombre = '';
+
+  // ✅ CORRECCIÓN: guardar la instancia del modal como propiedad de la clase
+  private modalEliminar: any = null;
 
   nueva: any = {
     carrera: '',
@@ -54,7 +55,6 @@ export class PlanillasComponent implements OnInit {
 
   async crear() {
     if (!this.nueva.partido || !this.nueva.carrera || !this.nueva.presidente) {
-      // Sin alert() — la validación se maneja en el formulario formplanilla
       return;
     }
     await this.planillasService.crearPlanilla(this.nueva);
@@ -83,31 +83,29 @@ export class PlanillasComponent implements OnInit {
     }
   }
 
-  // ② Abre el modal accesible en lugar de confirm()
+  // ✅ CORRECCIÓN: usar getOrCreateInstance() y guardar la referencia
   confirmarEliminar(id: string, nombre: string) {
     this.planillaAEliminarId = id;
     this.planillaAEliminarNombre = nombre;
 
     const modalEl = document.getElementById('modalEliminar');
     if (modalEl) {
-      const modal = new bootstrap.Modal(modalEl);
-      modal.show();
+      // getOrCreateInstance evita duplicar instancias
+      this.modalEliminar = bootstrap.Modal.getOrCreateInstance(modalEl);
+      this.modalEliminar.show();
     }
   }
 
-  // ③ Se llama desde el botón "Sí, eliminar" del modal
+  // ✅ CORRECCIÓN: cerrar usando la instancia guardada, no getInstance()
   async ejecutarEliminar() {
     if (this.planillaAEliminarId) {
       await this.planillasService.eliminarPlanilla(this.planillaAEliminarId);
       this.planillaAEliminarId = null;
       this.planillaAEliminarNombre = '';
 
-      // Cerrar el modal programáticamente
-      const modalEl = document.getElementById('modalEliminar');
-      if (modalEl) {
-        const modal = bootstrap.Modal.getInstance(modalEl);
-        modal?.hide();
-      }
+      // Cierra con la instancia guardada
+      this.modalEliminar?.hide();
+      this.modalEliminar = null;
 
       await this.cargarPlanillas();
     }
