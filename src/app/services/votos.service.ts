@@ -16,21 +16,17 @@ import { app } from '../firebase.config';
   providedIn: 'root'
 })
 export class VotosService {
-
   private db = getFirestore(app);
 
   async yaVoto(idEstudiante: string): Promise<boolean> {
     const refCol = collection(this.db, 'votos');
     const q = query(refCol, where('estudianteId', '==', idEstudiante));
     const snap = await getDocs(q);
-
     return !snap.empty;
   }
 
   async registrarVoto(data: any): Promise<void> {
-
     const yaVoto = await this.yaVoto(data.estudianteId);
-
     if (yaVoto) {
       throw new Error('El estudiante ya ha votado');
     }
@@ -38,13 +34,13 @@ export class VotosService {
     const voto = {
       fecha: Timestamp.now(),
       estudianteId: data.estudianteId,
-      planillaId: data.planillaId
+      planillaId: data.planillaId,
+      sede: data.sede  // Se guarda la sede para trazabilidad
     };
 
     await addDoc(collection(this.db, 'votos'), voto);
 
     const estudianteRef = doc(this.db, 'estudiantes', data.estudianteId);
-
     await updateDoc(estudianteRef, {
       yaVoto: true
     });
@@ -53,7 +49,6 @@ export class VotosService {
   async obtenerTodos(): Promise<any[]> {
     const refCol = collection(this.db, 'votos');
     const snap = await getDocs(refCol);
-
     return snap.docs.map(d => ({
       id: d.id,
       ...d.data()
@@ -64,7 +59,18 @@ export class VotosService {
     const refCol = collection(this.db, 'votos');
     const q = query(refCol, where('planillaId', '==', planillaId));
     const snap = await getDocs(q);
+    return snap.size;
+  }
 
+  // Nuevo método: contar votos filtrando por sede
+  async contarVotosPorPlanillaYSede(planillaId: string, sede: string): Promise<number> {
+    const refCol = collection(this.db, 'votos');
+    const q = query(
+      refCol,
+      where('planillaId', '==', planillaId),
+      where('sede', '==', sede)
+    );
+    const snap = await getDocs(q);
     return snap.size;
   }
 }

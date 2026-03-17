@@ -16,7 +16,6 @@ import {
   providedIn: 'root'
 })
 export class PlanillasService {
-
   private ref = collection(db, 'planillas');
 
   async crearPlanilla(data: any) {
@@ -25,7 +24,6 @@ export class PlanillasService {
 
   async obtenerPlanillas() {
     const snapshot = await getDocs(this.ref);
-
     return snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
@@ -33,25 +31,34 @@ export class PlanillasService {
   }
 
   async obtenerPlanilla(id: string) {
-
     const refDoc = doc(db, 'planillas', id);
     const snapshot = await getDoc(refDoc);
-
     if (snapshot.exists()) {
       return {
         id: snapshot.id,
         ...snapshot.data()
       };
     }
-
     return null;
   }
 
   async obtenerPlanillasPorCarrera(carrera: string) {
-
     const q = query(this.ref, where('carrera', '==', carrera));
     const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+  }
 
+  // Nuevo método: filtra por carrera + sede
+  async obtenerPlanillasPorCarreraYSede(carrera: string, sede: string) {
+    const q = query(
+      this.ref,
+      where('carrera', '==', carrera),
+      where('sede', '==', sede)
+    );
+    const snapshot = await getDocs(q);
     return snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
@@ -59,16 +66,12 @@ export class PlanillasService {
   }
 
   async eliminarPlanilla(id: string) {
-
     const refDoc = doc(db, 'planillas', id);
     await deleteDoc(refDoc);
-
   }
 
   async actualizarPlanilla(id: string, data: any) {
-
     const refDoc = doc(db, 'planillas', id);
     await updateDoc(refDoc, data);
-
   }
 }

@@ -13,10 +13,8 @@ import { RouterModule, Router } from '@angular/router';
   styleUrls: ['./planillas-public.css']
 })
 export class PlanillasPublicComponent implements OnInit {
-
   planillas: any[] = [];
   estudiante: any = null;
-
   cargando: boolean = true;
   mensajeError: string = '';
 
@@ -32,23 +30,21 @@ export class PlanillasPublicComponent implements OnInit {
     await this.cargarDatos();
   }
 
-      async irAlHome() {
-  await this.router.navigate(['/usuario']);
-}
+  async irAlHome() {
+    await this.router.navigate(['/usuario']);
+  }
 
   async cerrarSesion() {
-  await this.authService.logout();
-  localStorage.clear();
-  sessionStorage.clear();
-  this.router.navigate(['/login']);
-}
+    await this.authService.logout();
+    localStorage.clear();
+    sessionStorage.clear();
+    this.router.navigate(['/login']);
+  }
 
   async cargarDatos() {
     try {
       this.cargando = true;
-
       const user = await this.authService.getCurrentUser();
-
       if (!user) {
         this.mensajeError = 'Debes iniciar sesión.';
         this.cargando = false;
@@ -56,7 +52,6 @@ export class PlanillasPublicComponent implements OnInit {
       }
 
       const estudianteData = await this.estudiantesService.obtenerPorCorreo(user.email!);
-
       if (!estudianteData) {
         this.mensajeError = 'No se encontró información del estudiante.';
         this.cargando = false;
@@ -65,13 +60,20 @@ export class PlanillasPublicComponent implements OnInit {
 
       this.estudiante = estudianteData;
 
-      this.planillas = await this.planillasService.obtenerPlanillasPorCarrera(
-        this.estudiante.carrera
+      // Validación: carrera + sede
+      if (!this.estudiante.carrera || !this.estudiante.sede) {
+        this.mensajeError = 'No se encontró la carrera o sede del estudiante.';
+        this.cargando = false;
+        return;
+      }
+
+      this.planillas = await this.planillasService.obtenerPlanillasPorCarreraYSede(
+        this.estudiante.carrera,
+        this.estudiante.sede
       );
 
       this.cargando = false;
       this.cdr.detectChanges();
-
     } catch (error) {
       console.error('Error al cargar planillas públicas:', error);
       this.mensajeError = 'Error al cargar planillas.';
