@@ -22,7 +22,7 @@ export class PlanillasComponent implements OnInit {
   planillaAEliminarId: string | null = null;
   planillaAEliminarNombre = '';
 
-  // ✅ CORRECCIÓN: guardar la instancia del modal como propiedad de la clase
+  // CORRECCIÓN: guardar la instancia del modal como propiedad de la clase
   private modalEliminar: any = null;
 
   nueva: any = {
